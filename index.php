@@ -1,20 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <p>
-        <form action="secret.php" method="post">
-            <p>
-                <label> Etes vous celui que vous pretender etre ?<input type="radio" name="question"/></label></br>
-                <label><input type="password" name="mot_de_passe"/></label>
-                <label><input type="submit" value="valider"/></label>
-            
-            </p>
-        </form>
-    </p>
-</body>
-</html>
+<?php
+require('controller/controller.php');
+
+try {
+    if (isset($_GET['action'])) {
+        if ($_GET['action'] == 'listPosts') {
+           listPosts();
+           
+        }
+        elseif ($_GET['action'] == 'post') {
+            if (isset($_GET['id']) && $_GET['id'] > 0) {
+                post();
+            }
+            else {
+                throw new Exception('Aucun identifiant de billet envoyé');
+            }
+        }
+        elseif ($_GET['action'] == 'addComment') {
+            if (isset($_GET['id']) && $_GET['id'] > 0) {
+                if (!empty($_POST['author']) && !empty($_POST['comment'])) {
+                    addComment($_GET['id'], $_POST['author'], $_POST['comment']);
+                }
+                else {
+                    throw new Exception('Tous les champs ne sont pas remplis !');
+                }
+            }
+            else {
+                throw new Exception('Aucun identifiant de billet envoyé');
+            }
+        }
+    }
+    else {
+        listPosts();
+        //logIn();
+        //addPost();
+    }
+}
+catch(Exception $e) {
+    echo 'Erreur : ' . $e->getMessage();
+}
