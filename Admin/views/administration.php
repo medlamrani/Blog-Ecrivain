@@ -1,6 +1,6 @@
 <?php ob_start(); ?>
-<h1>Mon super blog !</h1>
-<p>Derniers billets du blog :</p>
+<h1>Administration</h1>
+
 
 <?php
 
@@ -29,4 +29,4 @@ $posts->closeCursor();
 
 
 
-<?php require(__DIR__ . "/../template.php"); ?>
+<?php require(__DIR__ . "/../template/layout.php"); ?>
