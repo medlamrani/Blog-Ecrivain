@@ -7,7 +7,11 @@
         <link rel="stylesheet" type="text/css" href="public/css/bootstrap.css">
         <title><?= $title ?></title>
     </head>
-    <body>      
+    <body>    
+    <header>
+    </header> 
+    <div class="main">
         <?= $content ?>
+    </div>    
     </body>
 </html>
