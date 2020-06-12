@@ -4,18 +4,18 @@ require_once('Manager.php');
 
 class PostManager extends Manager
 {
+    
     public function addPost(Post $post)
     {
         $db = $this->dbConnect();
         $req = $db->prepare('INSERT INTO post(author, title, contain, addDate, updateDate) 
-        VALUES(?, ?, ?, NOW(), NOW())');
-        //$post = $req->execute(array($title, $contain));
+        VALUES(:author, :title, :contain, NOW(), NOW())');
+        
         $req->bindValue(':title', $post->title());
         $req->bindValue(':author', $post->author());
         $req->bindValue(':contain', $post->contain());
 
         $req->execute();
-        //return $post;
     }
 
     public function deletePost($postId)
@@ -42,8 +42,11 @@ class PostManager extends Manager
     {
         $db = $this->dbConnect();
         $req = $db->query('SELECT id, title, contain, addDate, updateDate FROM post ORDER BY addDate DESC LIMIT 0, 5');
+        $listPost = $req->fetchAll();
 
-        return $req;
+        $req->closeCursor();
+
+        return $listPost;
     }
 
     public function getPost($postId)

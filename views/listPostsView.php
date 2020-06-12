@@ -2,11 +2,6 @@
 <h1>Mon super blog !</h1>
 <p>Derniers billets du blog :</p>
 
-<?php
-
-while ($data = $posts->fetch())
-{
-?>
 <div class="card text-center">
   <div class="card-header">
     Article
@@ -19,10 +14,7 @@ while ($data = $posts->fetch())
   <div class="card-footer text-muted">
   <em>le <?= $data['addDate'] ?></em>
   </div>
-<?php
-}
-$posts->closeCursor();
-?>
+
 <?php $content = ob_get_clean(); ?>
 
 
