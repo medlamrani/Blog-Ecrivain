@@ -7,11 +7,11 @@
 <div class="news">
     <h3>
         <?= htmlspecialchars($post['title']) ?>
-        <em>le <?= $post['creation_date_fr'] ?></em>
+        <em>le <?= $post['addDate'] ?></em>
     </h3>
     
     <p>
-        <?= nl2br(htmlspecialchars($post['content'])) ?>
+        <?= nl2br(htmlspecialchars($post['contain'])) ?>
     </p>
 </div>
 
@@ -35,7 +35,7 @@
 while ($comment = $comments->fetch())
 {
 ?>
-    <p><strong><?= htmlspecialchars($comment['author']) ?></strong> le <?= $comment['comment_date_fr'] ?></p>
+    <p><strong><?= htmlspecialchars($comment['author']) ?></strong> le <?= $comment['commentDate'] ?></p>
     <p><?= nl2br(htmlspecialchars($comment['comment'])) ?></p>
 <?php
 }
