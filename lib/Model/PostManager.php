@@ -1,34 +1,70 @@
 <?php
 
-require_once('Manager.php');
+require_once('DBConnect.php');
 
-class PostManager extends Manager
+class PostManager  extends DBConnect
 {
-    
-    public function addPost(Post $post)
+    public function getPosts($debut = -1, $limite = -1)
     {
-        $db = $this->dbConnect();
-        $req = $db->prepare('INSERT INTO post(author, title, contain, addDate, updateDate) 
-        VALUES(:author, :title, :contain, NOW(), NOW())');
-        
-        $req->bindValue(':title', $post->title());
-        $req->bindValue(':author', $post->author());
-        $req->bindValue(':contain', $post->contain());
+      
+        $sql = 'SELECT id, author, title, contain, addDate, updateDate FROM post ORDER BY id DESC';
 
-        $req->execute();
+        if ($debut != -1 || $limite != -1)
+        {
+            $sql .= ' LIMIT ' . (int) $limite. ' OFFSET '. (int) $debut;
+        }
+
+        $req = $this->connect()->query($sql);
+        $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Post');
+
+        $listPost = $req->fetchAll();
+
+        foreach ($listPost as $post)
+        {
+            $post->setAddDate(new DateTime($post->addDate()));
+            $post->setUpdateDate(new DateTime($post->updateDate()));
+        }
+
+        $req->closeCursor();
+
+        return $listPost;
+
     }
 
-    public function deletePost($postId)
+    public function getPost($postId)
     {
-        $db = $this->dbConnect();
-        $db->exec('DELETE FROM post WHERE id = ? ');
+        $sql = "SELECT id, title, contain, addDate, updateDate FROM post WHERE id = ?";
+        $db = $this->connect()->prepare($sql);
+        $db->execute(array($postId));
+
+        $post = $db->fetch();
+
+        return $post;
+    }
+
+    public function addPost(Post $post)
+    {
+        $sql = "INSERT INTO post(author, title, contain, addDate, updateDate)
+        VALUES(:author, :title, :contain, NOW(), NOW())";
+        $db = $this->connect()->prepare($sql);
+        
+
+        $db->bindValue(':title', $post->title());
+        $db->bindValue(':author', $post->author());
+        $db->bindValue(':contain', $post->contain());
+
+        $db->execute();
+    }
+
+    public function deletePost($id)
+    {
+
     }
 
     public function updatePost(Post $post)
     {
-        $db = $this->dbConnect();
-        // update a faire 
-        $req = $this->db->prepare('UPDATE post SET author = :author, title = :title, contain = :contain, updateDate = NOW() WHERE id = :id');
+        $sql = "UPDATE post SET author = :author, title = :title, contain = :contain, updateDate = NOW() WHERE id = :id";
+        $req = $this->connect()->prepare($sql);
 
         $req->bindValue(':title', $post->title());
         $req->bindValue(':author', $post->author());
@@ -38,24 +74,16 @@ class PostManager extends Manager
         $req->execute();
     }
 
-    public function getPostList()
+
+    public function save(Post $post)
     {
-        $db = $this->dbConnect();
-        $req = $db->query('SELECT id, title, contain, addDate, updateDate FROM post ORDER BY addDate DESC LIMIT 0, 5');
-        $listPost = $req->fetchAll();
-
-        $req->closeCursor();
-
-        return $listPost;
+        if($post->isValid())
+        {
+            $post->isNew() ? $this->addPost($post) : $this->updatePost($post);
+        }
+        else{
+            throw new RuntimeException('L\'article doit etre valide pour etre enregistree');
+        }
     }
-
-    public function getPost($postId)
-    {
-        $db = $this->dbConnect();
-        $req = $db->prepare('SELECT id, title, contain, addDate, updateDate FROM post WHERE id = ?');
-        $req->execute(array($postId));
-        $post = $req->fetch();
-
-        return $post;
-    }
+ 
 }

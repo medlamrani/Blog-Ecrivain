@@ -1,17 +1,18 @@
 <?php
 
-class Admin
+require_once('DBConnect.php');
+
+class Admin extends DBConnect
 {
-    protected Username;
-    protected Password;
-
-
-    public function _construct()
+    protected $username,
+              $password;
+              
+              
+    public function isAdmin()
     {
-
-    }
-    public function isAdmnin()
-    {
-        if()
+        session_start();
+        
+        $sql = "SELECT * FROM user";
+        $db = $this->connect()->query($sql); 
     }
 }

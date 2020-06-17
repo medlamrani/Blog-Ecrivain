@@ -1,34 +1,48 @@
 <?php ob_start(); ?>
 
-<h1>Mon super blog !</h1>
-<p>Derniers billets du blog :</p>
+<h1>Mon blog !</h1>
 
-<?php
+  <section id="billet-section">
+    <div class="container bg-white">
+        <div class="row">
+            <div class="col-10 offset-1 mb-5 mt-5">
+                <h2 class="text-justify" style="36px">Retrouvez les 5 dernières articles.</h2>
+                <br />
+                <hr>
+                
+                <?php 
+                foreach ($postManager->getPosts(0, 5) as $post)
+                {
+                ?>
+                    <article class="mb-5 mt-5">
+                    <?php
+                    if (strlen($post->contain()) <= 200)
+                    {
+                      $contain = $post->contain();
+                    }
+                    
+                    else
+                    {
+                      $debut = substr($post->contain(), 0, 200);
+                      $debut = substr($debut, 0, strrpos($debut, ' ')) . '...';
+                      
+                      $contain = $debut;
+                    }
+                    
+                    echo '<h4><a href="?id=', $post->id(), '">', $post->title(), '</a></h4>', "\n",
+                        '<p>', nl2br($contain), '</p>';
+                  ?>
+                    </article>
+                <?php
+                }
+            ?>
+            </div>
+        </div>
+</section>
 
-  echo '<h2 style="text-align:center">Liste des 5 dernières news</h2>';
-  
-  while ($data = $posts->fetch())
-  {
-  ?>
-    <div class="card text-center">
-      <div class="card-header">
-        Article
-      </div>
-      <div class="card-body">
-        <h5 class="card-title"><?= $data['title'] ?></h5>
-        <p class="card-text"><?= $data['contain'] ?></p>
-        <a href="index.php?action=post&amp;id=<?= $data['id'] ?>" class="btn btn-primary">Commentaires</a>
-      </div>
-      <div class="card-footer text-muted">
-      <em>le <?= $data['addDate'] ?></em>
-      <em>le <?= $data['updateDate'] ?></em>
-    </div>
-  <?php
-  }
-  $posts->closeCursor();
-  ?>
+
 
 
 
 <?php $content = ob_get_clean(); ?>
-<?php require(__DIR__ . "/../template.php"); ?>
+<?php require(__DIR__ . "/templates/layout.php"); ?>

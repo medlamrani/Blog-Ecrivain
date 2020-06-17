@@ -2,6 +2,11 @@
 
 require_once('/lib/Model/PostManager.php');
 
+function isAdmin()
+{
+    
+}
+
 function userInterface()
 {
     $postManager = new PostManager();

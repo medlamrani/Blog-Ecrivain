@@ -45,6 +45,11 @@ class Post
         return !(empty($this->author) || empty($this->title) || empty($this->contain));
     }
 
+    public function setId($id)
+    {
+        $this->id = (int) $id;
+    }
+
     public function setAuthor($author)
     {
         if (!is_string($author) || empty($author))
@@ -83,6 +88,16 @@ class Post
     public function setUpdateDate($updateDate)
     {
         $this->updateDate = $updateDate;
+    }
+
+    public function errors()
+    {
+        return $this->errors;
+    }
+    
+    public function id()
+    {
+        return $this->id;
     }
 
     public function author()

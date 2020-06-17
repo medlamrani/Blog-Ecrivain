@@ -9,6 +9,19 @@
     </head>
     <body>    
     <header>
+        <nav class="navbar navbar-dark bg-dark justify-content-between">
+            <a class="navbar-brand">
+                <img src="public/images/booki.png" width="50" height="40" alt="" loading="lazy">
+                Mohamed LAMRANI
+            </a>
+            <div>
+                <a href="index.php">Accueil</a>
+                <a href="#clients">Articles</a>
+                <a href="#clients">Administration</a>
+                <a href="index.php?action=addPostPage">Add</a>
+                
+            </div>
+        </nav>        
     </header> 
     <div class="main">
         <?= $content ?>
