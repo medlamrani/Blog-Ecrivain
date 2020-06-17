@@ -1,24 +1,75 @@
 <?php
 
-require_once('Manager.php');
+require_once('DBConnect.php');
 
-class CommentManager extends Manager
-{   
-    public function getComments($postId)
+
+class CommentsManager extends DBConnect
+{
+  protected function add(Comment $comment)
+  {
+    $q = $this->connect()->prepare('INSERT INTO comments SET postId = :postId, author = :author, contain = :contain, report = 0, commentDate = NOW()');
+ 
+    $q->bindValue(':postId', $comment->postId(), \PDO::PARAM_INT);
+    $q->bindValue(':auteur', $comment->author());
+    $q->bindValue(':contenu', $comment->contain());
+ 
+    $q->execute();
+ 
+    $comment->setId($this->connect()->lastInsertId());
+  }
+ 
+  public function delete($id)
+  {
+    $this->connect()->exec('DELETE FROM comments WHERE id = '.(int) $id);
+  }
+ 
+  public function deleteFromNews($postId)
+  {
+    $this->connect()->exec('DELETE FROM comments WHERE postId = '.(int) $postId);
+  }
+ 
+  public function getListOf($postId)
+  {
+    if (!ctype_digit($postId))
     {
-        $db = $this->dbConnect();
-        $comments = $db->prepare('SELECT id, author, comment, commentDate FROM comments WHERE postId = ? ORDER BY commentDate DESC');
-        $comments->execute(array($postId));
-
-        return $comments;
+      throw new \InvalidArgumentException('L\'identifiant de la news passé doit être un nombre entier valide');
     }
-
-    public function postComment($postId, $author, $comment)
+ 
+    $q = $this->connect()->prepare('SELECT id, postId, author, contain, date FROM comments WHERE postId = :postId');
+    $q->bindValue(':postId', $postId, \PDO::PARAM_INT);
+    $q->execute();
+ 
+    $q->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\Comment');
+ 
+    $comments = $q->fetchAll();
+ 
+    foreach ($comments as $comment)
     {
-        $db = $this->dbConnect();
-        $comments = $db->prepare('INSERT INTO comments(postId, author, comment, commentDate) VALUES(?, ?, ?, NOW())');
-        $affectedLines = $comments->execute(array($postId, $author, $comment));
-
-        return $affectedLines;
+      $comment->setDate(new \DateTime($comment->date()));
     }
+ 
+    return $comments;
+  }
+ 
+  protected function modify(Comment $comment)
+  {
+    $q = $this->connect()->prepare('UPDATE comments SET author = :author, contain = :contain WHERE id = :id');
+ 
+    $q->bindValue(':author', $comment->author());
+    $q->bindValue(':contain', $comment->contain());
+    $q->bindValue(':id', $comment->id(), \PDO::PARAM_INT);
+ 
+    $q->execute();
+  }
+ 
+  public function get($id)
+  {
+    $q = $this->connect()->prepare('SELECT id, postId, author, contain FROM comments WHERE id = :id');
+    $q->bindValue(':id', (int) $id, \PDO::PARAM_INT);
+    $q->execute();
+ 
+    $q->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\Comment');
+ 
+    return $q->fetch();
+  }
 }

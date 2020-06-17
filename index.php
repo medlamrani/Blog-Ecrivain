@@ -1,49 +1,34 @@
 <?php
-
 require('controller/controller.php');
-require('Admin/controller/PostController.php');
+require('controller/adminController.php');
 
 try
 {
     if (isset($_GET['action']))
     {
-        if(/* check admin*/ )
-        {
-            if($_GET['action'] == 'addPostPage')
-            {
-                addPostPage();  
-            }
-            elseif($_GET['action'] == 'addPost') 
-            {
-                if (!empty($_POST['title']) && !empty($_POST['content']))
-                {
-                    addPost($_POST['title'], $_POST['content']);
-                }
-                else 
-                {
-                    throw new Exception('Tous les champs ne sont pas remplis !');
-                }
-            }
-            else
-            {
-                //getList();
-                userInterface();
-            }
-        }
-        elseif ($_GET['action'] == 'listPosts') 
+        if ($_GET['action'] == 'listPosts') 
         {
             getList();           
         } 
+        elseif($_GET['action'] == 'addPostPage'){
+            addPostPage(); 
+        }
+        elseif($_GET['action'] == 'addPost') {
+            if (isset($_POST['author'])) {
+               addPost();
+            }
+            else {
+                throw new Exception('Tous les champs ne sont pas remplis !');
+            }
+        } 
         elseif ($_GET['action'] == 'post')
         {
-            if (isset($_GET['id']) && $_GET['id'] > 0) 
-            {
-                post();
-            }
-            else 
-            {
-                throw new Exception('Aucun identifiant de billet envoyé');
-            }
+             if (isset($_GET['id']) && $_GET['id'] > 0) {
+                 post();
+             }
+             else {
+                 throw new Exception('Aucun identifiant de billet envoyé');
+             }
         }
         elseif ($_GET['action'] == 'addComment')
         {
@@ -63,6 +48,10 @@ try
                 throw new Exception('Aucun identifiant de billet envoyé');
             }
         }
+        elseif ($_GET['action'] == 'reportComment')
+        {
+            reportComment($_GET['id']);
+        }
     }
     else
     {
@@ -73,4 +62,3 @@ catch(Exception $e)
 {
     echo 'Erreur : ' . $e->getMessage();
 }
-
