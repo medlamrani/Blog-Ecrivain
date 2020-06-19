@@ -3,6 +3,7 @@
 require_once('lib/Model/PostManager.php');
 require_once('lib/Model/DBConnect.php');
 require_once('lib/Model/CommentManager.php');
+require_once('lib/Entity/Comment.php');
 require_once('lib/Entity/Post.php');
 
 function getList()
@@ -17,7 +18,7 @@ function post()
     $commentManager = new CommentManager();
 
     $post = $postManager->getPost($_GET['id']);
-    $comments = $commentManager->getComments($_GET['id']);
+    $comments = $commentManager->getListOf($_GET['id']);
 
     require('views/postView.php');
 }

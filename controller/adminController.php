@@ -6,7 +6,7 @@ require_once('lib/Model/CommentManager.php');
 require_once('lib/Entity/Post.php');
 
 function addPostPage(){
-    require('views/addPostView.php');
+    require('views/addPost.php');
 }
 
 
@@ -29,7 +29,7 @@ function addPost(){
 
     if($post->isValid())
     {
-        $manager->save($post);
+        $postManager->save($post);
 
         $message = $post->isNew() ? 'La News a bien ete ajoutee !' : 'La news a bien ete modifiee !';
     }
@@ -38,5 +38,5 @@ function addPost(){
         $errors = $post->errors();
     }
 
-    //header('Location: index.php');
+    header('Location: index.php?action=addPost');
 }

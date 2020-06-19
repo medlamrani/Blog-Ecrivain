@@ -41,8 +41,13 @@ class Comment
  
     $this->contain = $contain;
   }
+
+  public function setReport($report)
+  {
+      $this->report = (int) $report;
+  }
  
-  public function setDate(\DateTime $commentDate)
+  public function setCommentDate(\DateTime $commentDate)
   {
     $this->commentDate = $commentDate;
   }
@@ -60,6 +65,11 @@ class Comment
   public function contain()
   {
     return $this->contain;
+  }
+
+  public function report()
+  {
+      return $this->report;
   }
  
   public function commentDate()

@@ -1,4 +1,4 @@
-<?php $title = htmlspecialchars($post['title']); ?>
+<?php $title = htmlspecialchars($post->title()); ?>
 
 <?php ob_start(); ?>
 <h1>Mon super blog !</h1>
@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <h1 class="display-4 main-title text-center text-white d-inline-block position-relative">Article</h1>
-                <h2 class="text-center text-white text-break"><?= $post['title'] ?></h2>
+                <h2 class="text-center text-white text-break"><?= $post->title() ?></h2>
             </div>
         </div>
     </div>
@@ -20,8 +20,8 @@
     <div class="container-fluid bg-white">
         <div class="row">
             <div class="col-10 offset-1 mb-5 mt-5 article-content">
-                <div class="text-justify mb-5">Publié le <?= $post['addDate'] ?></div>
-                <div class="text-justify article-text text-reader"><?= $post['contain'] ?></div>
+                <div class="text-justify mb-5">Publié le <?= $post->addDate()->format('d/m/Y à H\hi') ?></div>
+                <div class="text-justify article-text text-reader"><?= nl2br($post->contain()) ?></div>
             </div>
         </div>
 </article>
@@ -44,12 +44,15 @@
 </form>
 
 <?php
-while ($comment = $comments->fetch())
+foreach ($comments as $comment)
 {
 ?>
-    <p><strong><?= htmlspecialchars($comment['author']) ?></strong> le <?= $comment['commentDate'] ?></p>
-    <p><?= nl2br(htmlspecialchars($comment['comment'])) ?></p>
-    <p><a href="index.php?action=reportComment&amp;id=<?= $comment['id']?>">Signaler</a></p>
+<fieldset>
+  <legend>
+    Posté par <strong><?= htmlspecialchars($comment['author']) ?></strong> le <?= $comment['commentDate'] ?>
+  </legend>
+  <p><?= nl2br(htmlspecialchars($comment['contain'])) ?></p>
+</fieldset>
 <?php
 }
 ?>

@@ -2,16 +2,15 @@
 
 require_once('DBConnect.php');
 
-
-class CommentsManager extends DBConnect
+class CommentManager extends DBConnect
 {
-  protected function add(Comment $comment)
+  protected function addComment(Comment $comment)
   {
     $q = $this->connect()->prepare('INSERT INTO comments SET postId = :postId, author = :author, contain = :contain, report = 0, commentDate = NOW()');
  
     $q->bindValue(':postId', $comment->postId(), \PDO::PARAM_INT);
-    $q->bindValue(':auteur', $comment->author());
-    $q->bindValue(':contenu', $comment->contain());
+    $q->bindValue(':author', $comment->author());
+    $q->bindValue(':contain', $comment->contain());
  
     $q->execute();
  
@@ -35,7 +34,7 @@ class CommentsManager extends DBConnect
       throw new \InvalidArgumentException('L\'identifiant de la news passé doit être un nombre entier valide');
     }
  
-    $q = $this->connect()->prepare('SELECT id, postId, author, contain, date FROM comments WHERE postId = :postId');
+    $q = $this->connect()->prepare('SELECT id, postId, author, contain, commentDate FROM comments WHERE postId = :postId');
     $q->bindValue(':postId', $postId, \PDO::PARAM_INT);
     $q->execute();
  
@@ -45,7 +44,7 @@ class CommentsManager extends DBConnect
  
     foreach ($comments as $comment)
     {
-      $comment->setDate(new \DateTime($comment->date()));
+        $comment->setCommentDate(new \DateTime($comment->commentDate()));
     }
  
     return $comments;

@@ -31,13 +31,20 @@ class PostManager  extends DBConnect
 
     }
 
-    public function getPost($postId)
+    public function getPost($id)
     {
-        $sql = "SELECT id, title, contain, addDate, updateDate FROM post WHERE id = ?";
-        $db = $this->connect()->prepare($sql);
-        $db->execute(array($postId));
+        $sql = "SELECT id, author, title, contain, addDate, updateDate FROM post WHERE id = :id";
+        $req = $this->connect()->prepare($sql);
 
-        $post = $db->fetch();
+        $req->bindValue(':id', (int) $id, PDO::PARAM_INT);
+        $req->execute();
+
+        $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Post');
+
+        $post = $req->fetch();
+
+        $post->setAddDate(new DateTime($post->addDate()));
+        $post->setUpdateDate(new DateTime($post->updateDate()));
 
         return $post;
     }

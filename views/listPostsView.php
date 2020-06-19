@@ -29,9 +29,10 @@
                       $contain = $debut;
                     }
                     
-                    echo '<h4><a href="?id=', $post->id(), '">', $post->title(), '</a></h4>', "\n",
+                    echo '<h4><a href="index.php?action=post&amp;id=', $post->id(), '">', $post->title(), '</a></h4>', "\n",
                         '<p>', nl2br($contain), '</p>';
                   ?>
+                  <hr>
                     </article>
                 <?php
                 }
