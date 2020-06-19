@@ -22,7 +22,7 @@ class CommentManager extends DBConnect
     $this->connect()->exec('DELETE FROM comments WHERE id = '.(int) $id);
   }
  
-  public function deleteFromNews($postId)
+  public function deleteFromPost($postId)
   {
     $this->connect()->exec('DELETE FROM comments WHERE postId = '.(int) $postId);
   }
@@ -44,7 +44,7 @@ class CommentManager extends DBConnect
  
     foreach ($comments as $comment)
     {
-        $comment->setCommentDate(new \DateTime($comment->commentDate()));
+        $comment->setCommentDate(new DateTime($comment->commentDate()));
     }
  
     return $comments;
