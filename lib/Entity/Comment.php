@@ -11,18 +11,39 @@ class Comment
  
   const AUTHOR_INVALIDE = 1;
   const COMMENT_INVALIDE = 2;
+
+  public function __construct( $values = [])
+    {    
+        if (!empty($values))
+        {
+            $this->hydrate($values);
+        }
+    }
+
+    public function hydrate($datas)
+    {
+        foreach ($datas as $attribut => $value)
+        {
+            $method = 'set'.ucfirst($attribut);
+
+            if (is_callable([$this, $method]))
+            {
+                $this->$method($value);
+            }
+        }
+    }
  
   public function isValid()
   {
     return !(empty($this->author) || empty($this->contain));
   }
  
-  public function setPost($postId)
+  public function setPostId($postId)
   {
     $this->postId = (int) $postId;
   }
  
-  public function setAuteur($author)
+  public function setAuthor($author)
   {
     if (!is_string($author) || empty($author))
     {
@@ -32,7 +53,7 @@ class Comment
     $this->author = $author;
   }
  
-  public function setContenu($contain)
+  public function setContain($contain)
   {
     if (!is_string($contain) || empty($contain))
     {
@@ -47,10 +68,15 @@ class Comment
       $this->report = (int) $report;
   }
  
-  public function setCommentDate(\DateTime $commentDate)
+  public function setCommentDate($commentDate)
   {
     $this->commentDate = $commentDate;
   }
+
+  public function errors()
+    {
+        return $this->errors;
+    }
  
   public function postId()
   {
@@ -76,4 +102,6 @@ class Comment
   {
     return $this->commentDate;
   }
+
+
 }

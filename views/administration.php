@@ -29,4 +29,4 @@ $posts->closeCursor();
 
 
 
-<?php require(__DIR__ . "/../template/layout.php"); ?>
+<?php require(__DIR__ . "/templates/adminLayout.php"); ?>

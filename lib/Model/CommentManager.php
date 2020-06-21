@@ -14,7 +14,7 @@ class CommentManager extends DBConnect
  
     $q->execute();
  
-    $comment->setId($this->connect()->lastInsertId());
+    //$comment->setId($this->connect()->lastInsertId());
   }
  
   public function delete($id)
@@ -33,8 +33,10 @@ class CommentManager extends DBConnect
     {
       throw new \InvalidArgumentException('L\'identifiant de la news passé doit être un nombre entier valide');
     }
+
+    $sql = 'SELECT id, postId, author, contain, commentDate FROM comments WHERE postId = :postId';
  
-    $q = $this->connect()->prepare('SELECT id, postId, author, contain, commentDate FROM comments WHERE postId = :postId');
+    $q = $this->connect()->prepare($sql);
     $q->bindValue(':postId', $postId, \PDO::PARAM_INT);
     $q->execute();
  
@@ -42,15 +44,14 @@ class CommentManager extends DBConnect
  
     $comments = $q->fetchAll();
  
-    foreach ($comments as $comment)
-    {
-        $comment->setCommentDate(new DateTime($comment->commentDate()));
-    }
+    var_dump($comments);
+    
+    
  
     return $comments;
   }
  
-  protected function modify(Comment $comment)
+  protected function updateComment(Comment $comment)
   {
     $q = $this->connect()->prepare('UPDATE comments SET author = :author, contain = :contain WHERE id = :id');
  
@@ -63,7 +64,8 @@ class CommentManager extends DBConnect
  
   public function get($id)
   {
-    $q = $this->connect()->prepare('SELECT id, postId, author, contain FROM comments WHERE id = :id');
+      $sql = "SELECT id, postId, author, contain FROM comments WHERE id = :id";
+    $q = $this->connect()->prepare();
     $q->bindValue(':id', (int) $id, \PDO::PARAM_INT);
     $q->execute();
  
@@ -71,4 +73,22 @@ class CommentManager extends DBConnect
  
     return $q->fetch();
   }
+
+    public function save(Comment $comment)
+    {
+        if($comment->isValid())
+        {
+            $this->addComment($comment);
+        }
+        else{
+            throw new RuntimeException('Le commentaire doit etre valide pour etre enregistree');
+        }
+    }
+
+    public function report($id)
+    {
+        $sql = 'UPDATE comments SET report = 1 WHERE id = '.(int) $id;
+        $req = $this->connect()->exec($sql);
+    }
+
 }

@@ -23,18 +23,34 @@ function post()
     require('views/postView.php');
 }
 
-function addComment($postId, $author, $comment)
+function addComment($postId)
 {
     $commentManager = new CommentManager();
 
-    $affectedLines = $commentManager->postComment($postId, $author, $comment);
+    $comment = new Comment(
+        [
+            'postId' => $_GET['id'],
+            'author' => $_POST['author'],
+            'contain' => $_POST['contain']
+        ]
+    );
 
-    if ($affectedLines === false) {
-        throw new Exception('Impossible d\'ajouter le commentaire !');
+    var_dump($comment);
+
+
+    if($comment->isValid())
+    {
+        $commentManager->save($comment);
+
+        //$message = $comment->isNew() ? 'La News a bien ete ajoutee !' : 'La news a bien ete modifiee !';
     }
-    else {
-        header('Location: index.php?action=post&id=' . $postId);
+    else
+    {
+        $errors = $comment->errors();
     }
+
+    header('Location: index.php?action=post&id=' . $postId);
+    
 }
 
 function reportComment($id)
@@ -43,6 +59,8 @@ function reportComment($id)
 
     $reportComment = $commentManager->report($id);
 
-    header('Location: index.php?action=post&id=' . $postId);
+    echo 'le commentaire a ete signaler';
+
+    //header('Location: index.php?action=post&id=' . $postId);
 }
 
