@@ -35,14 +35,10 @@ function addComment($postId)
         ]
     );
 
-    var_dump($comment);
-
 
     if($comment->isValid())
     {
         $commentManager->save($comment);
-
-        //$message = $comment->isNew() ? 'La News a bien ete ajoutee !' : 'La news a bien ete modifiee !';
     }
     else
     {
@@ -52,6 +48,7 @@ function addComment($postId)
     header('Location: index.php?action=post&id=' . $postId);
     
 }
+
 
 function reportComment($id)
 {

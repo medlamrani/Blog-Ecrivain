@@ -54,7 +54,10 @@ function addPost(){
 function deletePost($id)
 {
     $postManager = new PostManager;
-    $postManager->deletePost($id);
+    $commentManager = new CommentManager;
+
+    $postManager->deletePost($id); // supprimer l'article
+    $commentManager->deleteFromPost($id); // supprimer les commentaire de cet article
 
     header('Location: index.php?action=administration');
 }

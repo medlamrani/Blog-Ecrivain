@@ -6,7 +6,8 @@ class CommentManager extends DBConnect
 {
   protected function addComment(Comment $comment)
   {
-      $q = $this->connect()->prepare('INSERT INTO comments SET postId = :postId, author = :author, contain = :contain, report = 0, commentDate = NOW()');
+      $sql = "INSERT INTO comments SET postId = :postId, author = :author, contain = :contain, report = 0, commentDate = NOW()";
+      $q = $this->connect()->prepare($sql);
   
       $q->bindValue(':postId', $comment->postId(), \PDO::PARAM_INT);
       $q->bindValue(':author', $comment->author());
@@ -19,12 +20,14 @@ class CommentManager extends DBConnect
  
   public function delete($id)
   {
-      $this->connect()->exec('DELETE FROM comments WHERE id = '.(int) $id);
+      $sql = "DELETE FROM comments WHERE id = ".(int) $id;
+      $req = $this->connect()->exec($sql);
   }
  
   public function deleteFromPost($postId)
   {
-      $this->connect()->exec('DELETE FROM comments WHERE postId = '.(int) $postId);
+      $sql = "DELETE FROM comments WHERE postId = ".(int) $postId;
+      $req = $this->connect()->exec($sql);
   }
  
   public function getListOf($postId)
