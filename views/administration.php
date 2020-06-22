@@ -2,26 +2,32 @@
 <h1>Administration</h1>
 
 
-<?php
-
-while ($data = $posts->fetch())
-{
+<?php 
+    foreach ($postManager->getPosts(0, 5) as $post)
+    {
 ?>
-<div class="card text-center">
-  <div class="card-header">
-    Article
-  </div>
-  <div class="card-body">
-    <h5 class="card-title"><?= htmlspecialchars($data['title']) ?></h5>
-    <p class="card-text"><?= nl2br($data['contain']) ?></p>
-    <a href="index.php?action=post&amp;id=<?= $data['id'] ?>" class="btn btn-primary">Commentaires</a>
-  </div>
-  <div class="card-footer text-muted">
-  <em>le <?= $data['addDate'] ?></em>
-  </div>
+      <article class="mb-5 mt-5">
 <?php
-}
-$posts->closeCursor();
+        if (strlen($post->contain()) <= 200)
+        {
+          $contain = $post->contain();
+        }
+                      
+        else
+        {
+          $debut = substr($post->contain(), 0, 200);
+          $debut = substr($debut, 0, strrpos($debut, ' ')) . '...';
+                        
+          $contain = $debut;
+        }
+                      
+        echo '<h4><a href="index.php?action=post&amp;id=', $post->id(), '">', $post->title(), '</a></h4>', "\n",
+              '<p>', nl2br($contain), '</p>';
+?>
+      <hr>
+      </article>
+<?php
+    }
 ?>
 <?php $content = ob_get_clean(); ?>
 

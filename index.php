@@ -9,16 +9,18 @@ try
         if ($_GET['action'] == 'listPosts') 
         {
             getList();           
-        } 
-        elseif($_GET['action'] == 'addPostPage'){
-            addPostPage(); 
         }
+        elseif($_GET['action'] == 'administration')
+        {   
+            administration();
+        } 
+
         elseif($_GET['action'] == 'addPost') {
             if (isset($_POST['author'])) {
                addPost();
             }
             else {
-                throw new Exception('Tous les champs ne sont pas remplis !');
+                addPostPage(); 
             }
         } 
         elseif ($_GET['action'] == 'post')

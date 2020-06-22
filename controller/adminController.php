@@ -5,6 +5,16 @@ require_once('lib/Model/DBConnect.php');
 require_once('lib/Model/CommentManager.php');
 require_once('lib/Entity/Post.php');
 
+
+function administration()
+{
+    $postManager = new PostManager();
+
+
+    require('views/administration.php');
+}
+
+
 function addPostPage(){
     require('views/addPost.php');
 }

@@ -7,7 +7,7 @@ class PostManager  extends DBConnect
     public function getPosts($debut = -1, $limite = -1)
     {
       
-        $sql = 'SELECT id, author, title, contain, addDate, updateDate FROM post ORDER BY id';
+        $sql = 'SELECT id, author, title, contain, addDate, updateDate FROM post ORDER BY id DESC';
 
         if ($debut != -1 || $limite != -1)
         {
