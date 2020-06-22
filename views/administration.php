@@ -26,7 +26,7 @@
       </h4>
       <p><?= nl2br($contain) ?> </p>
       <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Modifier</a>
-      <a href="#" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Supprimer</a>
+      <a href="index.php?action=deletePost&amp;id=<?= $post->id() ?>" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Supprimer</a>
               
 
       <hr>

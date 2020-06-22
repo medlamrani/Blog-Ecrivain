@@ -65,7 +65,8 @@ class PostManager  extends DBConnect
 
     public function deletePost($id)
     {
-
+        $sql = "DELETE FROM post WHERE id = ".(int) $id;
+        $req = $this->connect()->exec($sql);
     }
 
     public function updatePost(Post $post)

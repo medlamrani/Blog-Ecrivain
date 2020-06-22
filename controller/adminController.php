@@ -51,6 +51,14 @@ function addPost(){
     header('Location: index.php?action=administration');
 }
 
+function deletePost($id)
+{
+    $postManager = new PostManager;
+    $postManager->deletePost($id);
+
+    header('Location: index.php?action=administration');
+}
+
 function logIn()
 {
     require('views/logIn.php');

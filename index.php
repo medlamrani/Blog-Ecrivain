@@ -21,7 +21,8 @@ try
             administration();
         } 
 
-        elseif($_GET['action'] == 'addPost') {
+        elseif($_GET['action'] == 'addPost') 
+        {
             if (isset($_POST['author'])) {
                addPost();
             }
@@ -29,12 +30,22 @@ try
                 addPostPage(); 
             }
         } 
+
+        elseif($_GET['action'] == 'deletePost')
+        {
+            if(isset($_GET['id']))
+            {
+                deletePost($_GET['id']);
+            }
+        }
         elseif ($_GET['action'] == 'post')
         {
-             if (isset($_GET['id']) && $_GET['id'] > 0) {
+             if (isset($_GET['id']) && $_GET['id'] > 0) 
+             {
                  post();
              }
-             else {
+             else 
+             {
                  throw new Exception('Aucun identifiant de billet envoyé');
              }
         }
