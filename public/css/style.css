@@ -31,3 +31,15 @@ body {
     font-size: 28px; /* Increased text to enable scrolling */
     padding: 0px 10px;
   }
+
+  .login-bloc{
+    height: 100%;
+    margin-top: 200px;
+  }
+
+  .login {
+    width: 100%;
+    max-width: 400px;
+    padding: 25px;
+    margin: auto;
+  }

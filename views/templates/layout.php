@@ -16,10 +16,8 @@
             </a>
             <div>
                 <a href="index.php">Accueil</a>
-                <a href="#clients">Articles</a>
-                <a href="#clients">Administration</a>
-                <a href="index.php?action=addPostPage">Add</a>
-                
+                <a href="index.php?action=listPosts">Articles</a>
+                <a href="index.php?action=administration">Administration</a>               
             </div>
         </nav>        
     </header> 

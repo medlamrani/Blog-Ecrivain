@@ -48,5 +48,10 @@ function addPost(){
         $errors = $post->errors();
     }
 
-    header('Location: index.php?action=addPost');
+    header('Location: index.php?action=administration');
+}
+
+function logIn()
+{
+    require('views/logIn.php');
 }

@@ -10,6 +10,12 @@ try
         {
             getList();           
         }
+
+        elseif($_GET['action'] == 'login')
+        {
+            logIn();
+        }
+
         elseif($_GET['action'] == 'administration')
         {   
             administration();
