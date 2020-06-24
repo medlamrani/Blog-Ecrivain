@@ -1,58 +1,49 @@
-<?php $title = 'Mon blog'; ?>
-<?php require(__DIR__ . "/../header.php");?>
-<?php require(__DIR__ . "/../footer.php");?>
-
-<?= $header ?>
-
 <?php ob_start(); ?>
-<h1>Mon super blog !</h1>
-<p>Derniers billets du blog :</p>
 
+<h1>Mon blog !</h1>
 
-<?php
-while ($data = $posts->fetch())
-{
-?>
-<div class="card text-center">
-  <div class="card-header">
-    Article
-  </div>
-  <div class="card-body">
-    <h5 class="card-title"><?= htmlspecialchars($data['title']) ?></h5>
-    <p class="card-text"><?= nl2br(htmlspecialchars($data['content'])) ?></p>
-    <a href="index.php?action=post&amp;id=<?= $data['id'] ?>" class="btn btn-primary">Commentaires</a>
-  </div>
-  <div class="card-footer text-muted">
-  <em>le <?= $data['creation_date_fr'] ?></em>
-  </div>
-<?php
-}
-$posts->closeCursor();
-?>
-
-    <div class="newpost">
-        <div class="container-fluid">
-            <form action="" method="post" class="form-signin">
-                <img class="mb-4" src="public/image/booki.png" width="72" height="72">
-                <h1 class="h3 mb-3 font-weight-normal">Nouveau article</h1>
-                <label for="title" class="sr-only">Titre article :</label>
-                <input type="text" name="title" class="form-control"/>
-
-                <label for="pass" class="sr-only">Contenu article : :</label>
-                <textarea class="form-control" id="content" name="content" rows="3"></textarea>
+  <section id="billet-section">
+    <div class="container bg-white">
+        <div class="row">
+            <div class="col-10 offset-1 mb-5 mt-5">
+                <h2 class="text-justify" style="36px">Retrouvez les 5 dernières articles.</h2>
+                <br />
+                <hr>
                 
-
-                <input type="submit" value="Ajouter" name="addpost" class="btn btn-lg btn-primary btn-block"/>
-            </form>
+                <?php 
+                foreach ($postManager->getPosts(0, 5) as $post)
+                {
+                ?>
+                    <article class="mb-5 mt-5">
+                    <?php
+                    if (strlen($post->contain()) <= 200)
+                    {
+                      $contain = $post->contain();
+                    }
+                    
+                    else
+                    {
+                      $debut = substr($post->contain(), 0, 200);
+                      $debut = substr($debut, 0, strrpos($debut, ' ')) . '...';
+                      
+                      $contain = $debut;
+                    }
+                    
+                    echo '<h4><a href="index.php?action=post&amp;id=', $post->id(), '">', $post->title(), '</a></h4>', "\n",
+                        '<p>', nl2br($contain), '</p>';
+                  ?>
+                  <hr>
+                    </article>
+                <?php
+                }
+            ?>
+            </div>
         </div>
-    </div>
+</section>
+
+
+
+
 
 <?php $content = ob_get_clean(); ?>
-
-
-
-
-
-<?php require(__DIR__ . "/../template.php"); ?>
-
-<?= $footer ?>
+<?php require(__DIR__ . "/templates/layout.php"); ?>

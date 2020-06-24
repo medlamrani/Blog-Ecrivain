@@ -1,40 +1,83 @@
 <?php
 require('controller/controller.php');
+require('controller/adminController.php');
 
-try {
-    if (isset($_GET['action'])) {
-        if ($_GET['action'] == 'listPosts') {
-           listPosts();
-           
+try
+{
+    if (isset($_GET['action']))
+    {
+        if ($_GET['action'] == 'listPosts') 
+        {
+            getList();           
         }
-        elseif ($_GET['action'] == 'post') {
-            if (isset($_GET['id']) && $_GET['id'] > 0) {
-                post();
+
+        elseif($_GET['action'] == 'login')
+        {
+            logIn();
+        }
+
+        elseif($_GET['action'] == 'administration')
+        {   
+            administration();
+        } 
+
+        elseif($_GET['action'] == 'addPost') 
+        {
+            if (isset($_POST['author'])) {
+               addPost();
             }
             else {
-                throw new Exception('Aucun identifiant de billet envoyé');
+                addPostPage(); 
+            }
+        } 
+
+        elseif($_GET['action'] == 'deletePost')
+        {
+            if(isset($_GET['id']))
+            {
+                deletePost($_GET['id']);
             }
         }
-        elseif ($_GET['action'] == 'addComment') {
-            if (isset($_GET['id']) && $_GET['id'] > 0) {
-                if (!empty($_POST['author']) && !empty($_POST['comment'])) {
-                    addComment($_GET['id'], $_POST['author'], $_POST['comment']);
+        elseif ($_GET['action'] == 'post')
+        {
+             if (isset($_GET['id']) && $_GET['id'] > 0) 
+             {
+                 post();
+             }
+             else 
+             {
+                 throw new Exception('Aucun identifiant de billet envoyé');
+             }
+        }
+        elseif ($_GET['action'] == 'addComment')
+        {
+            if (isset($_GET['id']) && $_GET['id'] > 0) 
+            {
+                if (!empty($_POST['author']) && !empty($_POST['contain'])) 
+                {
+                    addComment($_GET['id']);
                 }
-                else {
+                else                 
+                {
                     throw new Exception('Tous les champs ne sont pas remplis !');
                 }
             }
-            else {
+            else 
+            {
                 throw new Exception('Aucun identifiant de billet envoyé');
             }
         }
+        elseif ($_GET['action'] == 'reportComment')
+        {
+            reportComment($_GET['id']);
+        }
     }
-    else {
-        listPosts();
-        //logIn();
-        //addPost();
+    else
+    {
+        getList();
     }
 }
-catch(Exception $e) {
+catch(Exception $e) 
+{
     echo 'Erreur : ' . $e->getMessage();
 }

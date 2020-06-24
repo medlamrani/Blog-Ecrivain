@@ -1,17 +1,15 @@
 <?php
 
-// Chargement des classes
-require_once('model/PostManager.php');
-require_once('model/CommentManager.php');
-require_once('model/MemberManager.php');
+require_once('lib/Model/PostManager.php');
+require_once('lib/Model/DBConnect.php');
+require_once('lib/Model/CommentManager.php');
+require_once('lib/Entity/Comment.php');
+require_once('lib/Entity/Post.php');
 
-function listPosts()
+function getList()
 {
-    $postManager = new PostManager(); // Création d'un objet
-    $posts = $postManager->getPosts(); // Appel d'une fonction de cet objet
-    //var_dump($posts);
-
-    require('views/posts/listPostsView.php');
+    $postManager = new PostManager();
+    require('views/listPostsView.php');
 }
 
 function post()
@@ -20,47 +18,46 @@ function post()
     $commentManager = new CommentManager();
 
     $post = $postManager->getPost($_GET['id']);
-    $comments = $commentManager->getComments($_GET['id']);
+    $comments = $commentManager->getListOf($_GET['id']);
 
-    require('views/posts/postView.php');
+    require('views/postView.php');
 }
 
-function addComment($postId, $author, $comment)
+function addComment($postId)
 {
     $commentManager = new CommentManager();
 
-    $affectedLines = $commentManager->postComment($postId, $author, $comment);
+    $comment = new Comment(
+        [
+            'postId' => $_GET['id'],
+            'author' => $_POST['author'],
+            'contain' => $_POST['contain']
+        ]
+    );
 
-    if ($affectedLines === false) {
-        throw new Exception('Impossible d\'ajouter le commentaire !');
+
+    if($comment->isValid())
+    {
+        $commentManager->save($comment);
     }
-    else {
-        header('Location: index.php?action=post&id=' . $postId);
+    else
+    {
+        $errors = $comment->errors();
     }
-}
 
-function addPost($title, $content){
-    $postManager = new PostManager();
-    $newpost = $postManager->newPost($title, $content);
-    var_dump($newpost);
-    header('Location: index.php');
-}
-
-function addMember(){
-
-    $memberManager = new MemberManager();
-    $addMember = $memberManager->createMember();
-
-    require('views/login/inscription.php');
-}
-
-function logIn(){
-
-    $memberManager = new MemberManager();
-    $logIn = $memberManager->register();
-
-    require('views/login/connexion.php');
+    header('Location: index.php?action=post&id=' . $postId);
+    
 }
 
 
+function reportComment($id)
+{
+    $commentManager = new CommentManager();
+
+    $reportComment = $commentManager->report($id);
+
+    echo 'le commentaire a ete signaler';
+
+    //header('Location: index.php?action=post&id=' . $postId);
+}
 
