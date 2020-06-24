@@ -16,10 +16,11 @@
                 <textarea class="form-control" id="contain" name="contain" rows="3"></textarea>
                 
 
-                <input type="submit" value="Ajouter" name="addpost" class="btn btn-lg btn-primary btn-block"/>
+                <input type="submit" value="Ajouter" name="addpost" class="btn btn-lg btn-primary btn-block mt-3"/>
             </form>
         </div>
     </div>
+
 
 <?php $content = ob_get_clean(); ?>    
 

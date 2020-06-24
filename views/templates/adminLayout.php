@@ -5,6 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="public/css/style.css">
         <link rel="stylesheet" type="text/css" href="public/css/bootstrap.css">
+        
+
         <title><?= $title ?></title>
     </head>
     <body>    
@@ -21,5 +23,9 @@
     <div class="main">
         <?= $content ?>
     </div>    
+
+    <script src="https://cdn.tiny.cloud/1/sopaorxqnp7cw8uwfjzg8qv2avtkkhniwt0bombfmer6v2f0/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <script src="public/js/main.js"></script>
     </body>
 </html>
