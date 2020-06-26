@@ -1,6 +1,9 @@
 <?php
-require('controller/controller.php');
-require('controller/adminController.php');
+require('controller/Controller.php');
+require('controller/AdminController.php');
+
+$controller = new Controller;
+$admin = new AdminController;
 
 try
 {
@@ -8,26 +11,26 @@ try
     {
         if ($_GET['action'] == 'listPosts') 
         {
-            getList();           
+            $controller->getList();           
         }
 
         elseif($_GET['action'] == 'login')
         {
-            logIn();
+            $admin->logIn();
         }
 
         elseif($_GET['action'] == 'administration')
         {   
-            administration();
+            $admin->administration();
         } 
 
         elseif($_GET['action'] == 'addPost') 
         {
             if (isset($_POST['author'])) {
-               addPost();
+                $admin->addPost();
             }
             else {
-                addPostPage(); 
+                $admin->addPostPage(); 
             }
         } 
 
@@ -35,14 +38,14 @@ try
         {
             if(isset($_GET['id']))
             {
-                deletePost($_GET['id']);
+                $admin->deletePost($_GET['id']);
             }
         }
         elseif ($_GET['action'] == 'post')
         {
              if (isset($_GET['id']) && $_GET['id'] > 0) 
              {
-                 post();
+                $controller->post();
              }
              else 
              {
@@ -55,7 +58,7 @@ try
             {
                 if (!empty($_POST['author']) && !empty($_POST['contain'])) 
                 {
-                    addComment($_GET['id']);
+                    $controller->addComment($_GET['id']);
                 }
                 else                 
                 {
@@ -69,12 +72,12 @@ try
         }
         elseif ($_GET['action'] == 'reportComment')
         {
-            reportComment($_GET['id']);
+            $controller->reportComment($_GET['id']);
         }
     }
     else
     {
-        getList();
+        $controller->getList();
     }
 }
 catch(Exception $e) 
