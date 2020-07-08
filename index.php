@@ -1,46 +1,26 @@
 <?php
+
+session_start();
+
 require('controller/Controller.php');
 require('controller/AdminController.php');
 
-$controller = new Controller;
-$admin = new AdminController;
+$controller = new Controller();
+$admin = new AdminController();
+ 
 
 try
 {
+
     if (isset($_GET['action']))
     {
+        // Front
+
         if ($_GET['action'] == 'listPosts') 
         {
             $controller->getList();           
         }
-
-        elseif($_GET['action'] == 'login')
-        {
-            $admin->logIn();
-        }
-
-        elseif($_GET['action'] == 'administration')
-        {   
-            $admin->administration();
-        } 
-
-        elseif($_GET['action'] == 'addPost') 
-        {
-            if (isset($_POST['author'])) {
-                $admin->addPost();
-            }
-            else {
-                $admin->addPostPage(); 
-            }
-        } 
-
-        elseif($_GET['action'] == 'deletePost')
-        {
-            if(isset($_GET['id']))
-            {
-                $admin->deletePost($_GET['id']);
-            }
-        }
+        
         elseif ($_GET['action'] == 'post')
         {
              if (isset($_GET['id']) && $_GET['id'] > 0) 
@@ -52,6 +32,7 @@ try
                  throw new Exception('Aucun identifiant de billet envoyé');
              }
         }
+
         elseif ($_GET['action'] == 'addComment')
         {
             if (isset($_GET['id']) && $_GET['id'] > 0) 
@@ -70,11 +51,46 @@ try
                 throw new Exception('Aucun identifiant de billet envoyé');
             }
         }
+
         elseif ($_GET['action'] == 'reportComment')
         {
             $controller->reportComment($_GET['id']);
         }
+
+        // Admin 
+
+        elseif($_GET['action'] == 'login')
+        {
+            if(isset($_POST['login']))
+            {
+                $admin->logIn();                
+            }
+            else
+            {
+                $admin->loginForm();
+            }
+            
+        }
+
+        elseif($_GET['action'] == 'administration')
+        {   
+            $admin->administration();            
+        } 
+
+        elseif($_GET['action'] == 'addPost') 
+        {
+            $admin->addPost();
+        } 
+
+        elseif($_GET['action'] == 'deletePost')
+        {
+            if(isset($_GET['id']))
+            {
+                $admin->deletePost($_GET['id']);
+            }
+        }
     }
+
     else
     {
         $controller->getList();

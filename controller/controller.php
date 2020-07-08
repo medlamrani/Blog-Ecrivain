@@ -44,7 +44,9 @@ class Controller
         }
         else
         {
-            $errors = $comment->errors();
+            $_SESSION['message'] = 'Commentaire ff';
+            
+           // $errors = $comment->errors();
         }
 
         header('Location: index.php?action=post&id=' . $postId);
@@ -60,7 +62,6 @@ class Controller
 
         echo 'le commentaire a ete signaler';
 
-        //header('Location: index.php?action=post&id=' . $postId);
     }
 }
 

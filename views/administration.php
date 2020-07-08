@@ -1,8 +1,12 @@
 <?php ob_start(); ?>
+<?php 
+      echo 'Bonjour '. $_SESSION['username'];
+      ?>
 <h1>Administration</h1>
 
 
 <?php 
+  
     foreach ($postManager->getPosts(0, 5) as $post)
     {
 ?>

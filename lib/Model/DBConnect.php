@@ -11,10 +11,10 @@ class DBConnect
 
     public function connect()
     {
-        $this->servername = "localhost";
-        $this->username = "root";
-        $this->password = "";
-        $this->dbname = "myapp";
+        $this->servername = "db5000603423.hosting-data.io";
+        $this->username = "dbu581270";
+        $this->password = "Forteroche.21";
+        $this->dbname = "dbs582208";
         $this->charset = "utf8";
 
     
