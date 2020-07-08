@@ -81,7 +81,6 @@ class AdminController
         $password = $_POST['password'];
         
         $admin = new UserManager();
-        //$admin->adminConnect($username, $password);
 
         $result = $admin->adminConnect($username, $password);
 
@@ -95,7 +94,7 @@ class AdminController
         {
             
             require('views/logIn.php');
-            $_SESSION['message'] = 'Login et mot de passe incorrect';
+            
         }
 
     }
