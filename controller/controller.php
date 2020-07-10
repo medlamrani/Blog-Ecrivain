@@ -45,8 +45,6 @@ class Controller
         else
         {
             $_SESSION['message'] = 'Commentaire ff';
-            
-           // $errors = $comment->errors();
         }
 
         header('Location: index.php?action=post&id=' . $postId);

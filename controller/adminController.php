@@ -66,8 +66,8 @@ class AdminController
     {
         $this->sessionExists();
 
-        $postManager = new PostManager;
-        $commentManager = new CommentManager;
+        $postManager = new PostManager();
+        $commentManager = new CommentManager();
 
         $postManager->deletePost($id); // supprimer l'article
         $commentManager->deleteFromPost($id); // supprimer les commentaire de cet article
@@ -86,8 +86,8 @@ class AdminController
 
         if($result == true)
         {
-            $postManager = new PostManager;
-            $commentManager = new CommentManager;
+            $postManager = new PostManager();
+            $commentManager = new CommentManager();
             require('views/administration.php');
         }
         else
