@@ -1,5 +1,7 @@
 <?php ob_start(); ?>
-
+<?php 
+      echo 'Bonjour '. $_SESSION['username'];
+      ?>
     <div class="newpost">
         <div class="container-fluid">
             <form action="?action=addPost" method="post" class="form-signin">

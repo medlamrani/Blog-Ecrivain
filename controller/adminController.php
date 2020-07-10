@@ -1,28 +1,41 @@
 <?php
 
 require_once('lib/Model/PostManager.php');
-require_once('lib/Model/DBConnect.php');
 require_once('lib/Model/CommentManager.php');
+require_once('lib/Model/UserManager.php');
+require_once('lib/Model/DBConnect.php');
 require_once('lib/Entity/Post.php');
 
 
 class AdminController
 {
+
+    public function sessionExists()
+    {
+        if (empty($_SESSION['id']))
+        {
+            header('Location: index.php?action=login');
+            exit(); 
+        }
+    }
+
+    public function loginForm()
+    {
+        require('views/logIn.php');
+    }
+
     public function administration()
     {
+        $this->sessionExists();
+
         $postManager = new PostManager();
-
-
         require('views/administration.php');
     }
 
 
-    public function addPostPage(){
-        require('views/addPost.php');
-    }
-
-
     public function addPost(){
+
+        $this->sessionExists();
 
         $postManager = new PostManager();
 
@@ -34,29 +47,27 @@ class AdminController
             ]
         );
 
-        if(isset($_POST['id']))
-        {
-            $post->setId($_POST['id']);
-        }
-
         if($post->isValid())
         {
             $postManager->save($post);
-
-            $message = $post->isNew() ? 'La News a bien ete ajoutee !' : 'La news a bien ete modifiee !';
+            header('Location: index.php?action=administration');
         }
         else
         {
-            $errors = $post->errors();
+            echo 'ajout impossible';
         }
 
-        header('Location: index.php?action=administration');
+        require('views/addPost.php');
+
+        
     }
 
     public function deletePost($id)
     {
-        $postManager = new PostManager;
-        $commentManager = new CommentManager;
+        $this->sessionExists();
+
+        $postManager = new PostManager();
+        $commentManager = new CommentManager();
 
         $postManager->deletePost($id); // supprimer l'article
         $commentManager->deleteFromPost($id); // supprimer les commentaire de cet article
@@ -66,6 +77,26 @@ class AdminController
 
     public function logIn()
     {
-        require('views/logIn.php');
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        
+        $admin = new UserManager();
+
+        $result = $admin->adminConnect($username, $password);
+
+        if($result == true)
+        {
+            $postManager = new PostManager();
+            $commentManager = new CommentManager();
+            require('views/administration.php');
+        }
+        else
+        {
+            
+            require('views/logIn.php');
+            
+        }
+
     }
+
 }
