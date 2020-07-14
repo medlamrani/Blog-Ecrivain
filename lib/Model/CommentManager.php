@@ -6,12 +6,12 @@ class CommentManager extends DBConnect
 {
   protected function addComment(Comment $comment)
   {
-      $sql = "INSERT INTO comments SET postId = :postId, author = :author, contain = :contain, report = 0, commentDate = NOW()";
+      $sql = "INSERT INTO comment SET post_id = :post_id, author = :author, content = :content, report = 0, commentDate = NOW()";
       $q = $this->connect()->prepare($sql);
   
-      $q->bindValue(':postId', $comment->postId(), \PDO::PARAM_INT);
+      $q->bindValue(':post_id', $comment->post_id(), \PDO::PARAM_INT);
       $q->bindValue(':author', $comment->author());
-      $q->bindValue(':contain', $comment->contain());
+      $q->bindValue(':content', $comment->content());
   
       $q->execute();
   
@@ -20,27 +20,27 @@ class CommentManager extends DBConnect
  
   public function delete($id)
   {
-      $sql = "DELETE FROM comments WHERE id = ".(int) $id;
+      $sql = "DELETE FROM comment WHERE id = ".(int) $id;
       $req = $this->connect()->exec($sql);
   }
  
-  public function deleteFromPost($postId)
+  public function deleteFromPost($post_id)
   {
-      $sql = "DELETE FROM comments WHERE postId = ".(int) $postId;
+      $sql = "DELETE FROM comment WHERE post_id = ".(int) $post_id;
       $req = $this->connect()->exec($sql);
   }
  
-  public function getListOf($postId)
+  public function getListOf($post_id)
   {
-      if (!ctype_digit($postId))
+      if (!ctype_digit($post_id))
       {
         throw new \InvalidArgumentException('L\'identifiant de la news passé doit être un nombre entier valide');
       }
 
-      $sql = 'SELECT id, postId, author, contain, commentDate FROM comments WHERE postId = :postId';
+      $sql = 'SELECT id, post_id, author, content, commentDate FROM comment WHERE post_id = :post_id';
   
       $q = $this->connect()->prepare($sql);
-      $q->bindValue(':postId', $postId, \PDO::PARAM_INT);
+      $q->bindValue(':post_id', $post_id, \PDO::PARAM_INT);
       $q->execute();
   
       $q->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\Comment');
@@ -56,7 +56,7 @@ class CommentManager extends DBConnect
  
   public function get($id)
   {
-      $sql = "SELECT id, postId, author, contain FROM comments WHERE id = :id";
+      $sql = "SELECT id, post_id, author, content FROM comment WHERE id = :id";
       $q = $this->connect()->prepare();
       $q->bindValue(':id', (int) $id, \PDO::PARAM_INT);
       $q->execute();
@@ -80,7 +80,7 @@ class CommentManager extends DBConnect
 
   public function report($id)
   {
-      $sql = 'UPDATE comments SET report = 1 WHERE id = '.(int) $id;
+      $sql = 'UPDATE comment SET report = 1 WHERE id = '.(int) $id;
       $req = $this->connect()->exec($sql);
   }
 

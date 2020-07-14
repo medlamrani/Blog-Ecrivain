@@ -3,9 +3,9 @@
 class Comment 
 {
   protected $errors = [],
-            $postId,
+            $post_id,
             $author,
-            $contain,
+            $content,
             $report,
             $commentDate;
  
@@ -35,12 +35,12 @@ class Comment
  
   public function isValid()
   {
-    return !(empty($this->author) || empty($this->contain));
+    return !(empty($this->author) || empty($this->content));
   }
  
-  public function setPostId($postId)
+  public function setPost_id($post_id)
   {
-    $this->postId = (int) $postId;
+    $this->post_id = (int) $post_id;
   }
  
   public function setAuthor($author)
@@ -53,14 +53,14 @@ class Comment
     $this->author = $author;
   }
  
-  public function setContain($contain)
+  public function setContent($content)
   {
-    if (!is_string($contain) || empty($contain))
+    if (!is_string($content) || empty($content))
     {
       $this->errors[] = self::COMMENT_INVALIDE;
     }
  
-    $this->contain = $contain;
+    $this->content = $content;
   }
 
   public function setReport($report)
@@ -78,9 +78,9 @@ class Comment
         return $this->errors;
     }
  
-  public function postId()
+  public function post_id()
   {
-    return $this->postId;
+    return $this->post_id;
   }
  
   public function author()
@@ -88,9 +88,9 @@ class Comment
     return $this->author;
   }
  
-  public function contain()
+  public function content()
   {
-    return $this->contain;
+    return $this->content;
   }
 
   public function report()

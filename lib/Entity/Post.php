@@ -4,15 +4,15 @@ class Post
 {
     protected   $errors = [],
                 $id,
-                $author,
+                $user_id,
                 $title,
-                $contain,
+                $content,
                 $addDate,
                 $updateDate;
 
     const AUTHOR_INVALIDE = 1;
     const TITLE_INVALIDE = 1;
-    const CONTAIN_INVALIDE = 1;
+    const CONTENT_INVALIDE = 1;
 
     public function __construct( $values = [])
     {    
@@ -42,7 +42,7 @@ class Post
 
     public function isValid()
     {
-        return !(empty($this->author) || empty($this->title) || empty($this->contain));
+        return !(empty($this->user_id) || empty($this->title) || empty($this->content));
     }
 
     public function setId($id)
@@ -50,14 +50,14 @@ class Post
         $this->id = (int) $id;
     }
 
-    public function setAuthor($author)
+    public function setAuthor($user_id)
     {
-        if (!is_string($author) || empty($author))
+        if (!is_string($user_id) || empty($user_id))
         {
             $this->errors[] = self::AUTHOR_INVALIDE;
         }
 
-        $this->author = $author;
+        $this->user_id = $user_id;
     }
 
     public function setTitle($title)
@@ -70,14 +70,14 @@ class Post
         $this->title = $title;
     }
 
-    public function setContain($contain)
+    public function setContent($content)
     {
-        if (is_string($contain) || empty($contain))
+        if (is_string($content) || empty($content))
         {
             $this->errors[] = self::TITLE_INVALIDE;
         }
 
-        $this->contain = $contain;
+        $this->content = $content;
     }
 
     public function setAddDate($addDate)
@@ -100,9 +100,9 @@ class Post
         return $this->id;
     }
 
-    public function author()
+    public function user_id()
     {
-        return $this->author;
+        return $this->user_id;
     }
 
     public function title()
@@ -110,9 +110,9 @@ class Post
         return $this->title;
     }
 
-    public function contain()
+    public function content()
     {
-        return $this->contain;
+        return $this->content;
     }
 
     public function addDate()

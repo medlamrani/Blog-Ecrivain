@@ -21,7 +21,7 @@
         <div class="row">
             <div class="col-10 offset-1 mb-5 mt-5 article-content">
                 <div class="text-justify mb-5">Publié le <?= $post->addDate()->format('d/m/Y à H\hi') ?></div>
-                <div class="text-justify article-text text-reader"><?= nl2br($post->contain()) ?></div>
+                <div class="text-justify article-text text-reader"><?= nl2br($post->content()) ?></div>
             </div>
         </div>
 </article>
@@ -36,7 +36,7 @@ foreach ($comments as $comment)
   <legend>
     Posté par <strong><?= htmlspecialchars($comment['author']) ?></strong> le <?= $comment['commentDate'] ?>
   </legend>
-  <p><?= nl2br(htmlspecialchars($comment['contain'])) ?></p>
+  <p><?= nl2br(htmlspecialchars($comment['content'])) ?></p>
 
   <a href="index.php?action=reportComment&amp;id=<?= $comment['id'] ?>">Signaler</a>
 </fieldset>
@@ -52,8 +52,8 @@ foreach ($comments as $comment)
         <input type="text" id="author" name="author" value="" />
     </div>
     <div>
-        <label for="contain">Commentaire</label><br />
-        <textarea id="contain" name="contain" ></textarea>
+        <label for="content">Commentaire</label><br />
+        <textarea id="content" name="content" ></textarea>
     </div>
     <div>
         <input type="submit" />

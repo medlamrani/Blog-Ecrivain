@@ -2,19 +2,19 @@
 
 CREATE TABLE IF NOT EXISTS `post` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `author` varchar(255) NOT NULL,
+  `user_id` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
-  `contain` text NOT NULL,
+  `content` text NOT NULL,
   `addDate` datetime NOT NULL,
   `updateDate` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
 
-CREATE TABLE IF NOT EXISTS `comments` (
+CREATE TABLE IF NOT EXISTS `comment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `postId` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
   `author` varchar(255) NOT NULL,
-  `contain` text NOT NULL,
+  `content` text NOT NULL,
   `report` int(11) NOT NULL,
   `commentDate` datetime NOT NULL,
   PRIMARY KEY (`id`)

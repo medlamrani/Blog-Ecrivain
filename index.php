@@ -37,7 +37,7 @@ try
         {
             if (isset($_GET['id']) && $_GET['id'] > 0) 
             {
-                if (!empty($_POST['author']) && !empty($_POST['contain'])) 
+                if (!empty($_POST['author']) && !empty($_POST['content'])) 
                 {
                     $controller->addComment($_GET['id']);
                 }

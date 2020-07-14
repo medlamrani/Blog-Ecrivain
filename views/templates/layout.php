@@ -12,7 +12,7 @@
         <nav class="navbar navbar-dark bg-dark justify-content-between">
             <a class="navbar-brand">
                 <img src="public/images/booki.png" width="50" height="40" alt="" loading="lazy">
-                Mohamed LAMRANI
+                Jean Forteroche
             </a>
             <div>
                 <a href="index.php">Accueil</a>

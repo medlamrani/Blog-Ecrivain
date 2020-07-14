@@ -25,15 +25,15 @@ class Controller
         require('views/postView.php');
     }
 
-    public function addComment($postId)
+    public function addComment($post_id)
     {
         $commentManager = new CommentManager();
 
         $comment = new Comment(
             [
-                'postId' => $_GET['id'],
+                'post_id' => $_GET['id'],
                 'author' => $_POST['author'],
-                'contain' => $_POST['contain']
+                'content' => $_POST['content']
             ]
         );
 
@@ -47,7 +47,7 @@ class Controller
             $_SESSION['message'] = 'Commentaire ff';
         }
 
-        header('Location: index.php?action=post&id=' . $postId);
+        header('Location: index.php?action=post&id=' . $post_id);
         
     }
 
