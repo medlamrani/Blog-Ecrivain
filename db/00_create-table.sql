@@ -21,11 +21,10 @@ CREATE TABLE IF NOT EXISTS `comment` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
 
-
-
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+  `username` varchar(255)  NOT NULL,
+  `password` varchar(255)  NOT NULL,
+  PRIMARY KEY (`id`),
+  Constraint username_unique UNIQUE  (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8  AUTO_INCREMENT=1 ;
