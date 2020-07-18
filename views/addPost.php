@@ -8,8 +8,8 @@
                 <img class="mb-4" src="public/images/booki.png" width="72" height="72">
                 <h1 class="h3 mb-3 font-weight-normal">Nouveau article</h1>
 
-                <label for="user_id" >Auteur : </label>
-                <input type="text" name="user_id"class="form-control"  value="<?php if (isset($post)) echo $post->author(); ?>" />
+                <label for="userId" >Auteur : </label>
+                <input type="text" name="userId" class="form-control"  value="<?php if (isset($post)) echo $post->author(); ?>" />
 
                 <label for="title" >Titre article :</label>
                 <input type="text" name="title" class="form-control" value="<?php if (isset($post)) echo $post->title(); ?>"/>

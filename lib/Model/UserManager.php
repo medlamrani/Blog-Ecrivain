@@ -16,10 +16,6 @@ class UserManager extends DBConnect
 
        $result = $req->fetch();
 
-       echo $username;
-       echo $password;
-       echo $result['password'];
-
        // hachage password_verify
 
        $isPasswordCorrect = $password == $result['password'];

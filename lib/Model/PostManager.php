@@ -57,7 +57,7 @@ class PostManager  extends DBConnect
         
 
         $db->bindValue(':title', $post->title());
-        $db->bindValue(':user_id', $post->user_id());
+        $db->bindValue(':user_id', $post->userId());
         $db->bindValue(':content', $post->content());
 
         $db->execute();
@@ -75,7 +75,7 @@ class PostManager  extends DBConnect
         $req = $this->connect()->prepare($sql);
 
         $req->bindValue(':title', $post->title());
-        $req->bindValue(':user_id', $post->user_id());
+        $req->bindValue(':user_id', $post->userId());
         $req->bindValue(':content', $post->content());
         $req->bindValue(':id', $post->id(), PDO::PARAM_INT);
 

@@ -7,7 +7,8 @@ CREATE TABLE IF NOT EXISTS `post` (
   `content` text NOT NULL,
   `addDate` datetime NOT NULL,
   `updateDate` datetime NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  CONSTRAINT FK_UserPost FOREIGN KEY (user_id) REFERENCES user(id)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
 
 CREATE TABLE IF NOT EXISTS `comment` (
@@ -26,5 +27,5 @@ CREATE TABLE IF NOT EXISTS `user` (
   `username` varchar(255)  NOT NULL,
   `password` varchar(255)  NOT NULL,
   PRIMARY KEY (`id`),
-  Constraint username_unique UNIQUE  (`username`)
+  CONSTRAINT username_unique UNIQUE  (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8  AUTO_INCREMENT=1 ;

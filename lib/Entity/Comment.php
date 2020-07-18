@@ -3,7 +3,7 @@
 class Comment 
 {
   protected $errors = [],
-            $post_id,
+            $postId,
             $author,
             $content,
             $report,
@@ -38,9 +38,9 @@ class Comment
     return !(empty($this->author) || empty($this->content));
   }
  
-  public function setPost_id($post_id)
+  public function setPostId($postId)
   {
-    $this->post_id = (int) $post_id;
+    $this->postId = (int) $postId;
   }
  
   public function setAuthor($author)
@@ -78,9 +78,9 @@ class Comment
         return $this->errors;
     }
  
-  public function post_id()
+  public function postId()
   {
-    return $this->post_id;
+    return $this->postId;
   }
  
   public function author()

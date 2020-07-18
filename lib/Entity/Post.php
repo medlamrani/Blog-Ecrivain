@@ -4,7 +4,7 @@ class Post
 {
     protected   $errors = [],
                 $id,
-                $user_id,
+                $userId,
                 $title,
                 $content,
                 $addDate,
@@ -42,7 +42,7 @@ class Post
 
     public function isValid()
     {
-        return !(empty($this->user_id) || empty($this->title) || empty($this->content));
+        return !(empty($this->userId) || empty($this->title) || empty($this->content));
     }
 
     public function setId($id)
@@ -50,14 +50,9 @@ class Post
         $this->id = (int) $id;
     }
 
-    public function setAuthor($user_id)
+    public function setUserId($userId)
     {
-        if (!is_string($user_id) || empty($user_id))
-        {
-            $this->errors[] = self::AUTHOR_INVALIDE;
-        }
-
-        $this->user_id = $user_id;
+        $this->$userId = (int) $userId;
     }
 
     public function setTitle($title)
@@ -100,9 +95,9 @@ class Post
         return $this->id;
     }
 
-    public function user_id()
+    public function userId()
     {
-        return $this->user_id;
+        return $this->userId;
     }
 
     public function title()

@@ -9,7 +9,7 @@ class CommentManager extends DBConnect
       $sql = "INSERT INTO comment SET post_id = :post_id, author = :author, content = :content, report = 0, commentDate = NOW()";
       $q = $this->connect()->prepare($sql);
   
-      $q->bindValue(':post_id', $comment->post_id(), \PDO::PARAM_INT);
+      $q->bindValue(':post_id', $comment->postId(), \PDO::PARAM_INT);
       $q->bindValue(':author', $comment->author());
       $q->bindValue(':content', $comment->content());
   
@@ -24,15 +24,15 @@ class CommentManager extends DBConnect
       $req = $this->connect()->exec($sql);
   }
  
-  public function deleteFromPost($post_id)
+  public function deleteFromPost($postId)
   {
-      $sql = "DELETE FROM comment WHERE post_id = ".(int) $post_id;
+      $sql = "DELETE FROM comment WHERE post_id = ".(int) $postId;
       $req = $this->connect()->exec($sql);
   }
  
-  public function getListOf($post_id)
+  public function getListOf($postId)
   {
-      if (!ctype_digit($post_id))
+      if (!ctype_digit($postId))
       {
         throw new \InvalidArgumentException('L\'identifiant de la news passé doit être un nombre entier valide');
       }
@@ -40,7 +40,7 @@ class CommentManager extends DBConnect
       $sql = 'SELECT id, post_id, author, content, commentDate FROM comment WHERE post_id = :post_id';
   
       $q = $this->connect()->prepare($sql);
-      $q->bindValue(':post_id', $post_id, \PDO::PARAM_INT);
+      $q->bindValue(':post_id', $postId, \PDO::PARAM_INT);
       $q->execute();
   
       $q->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\Comment');
