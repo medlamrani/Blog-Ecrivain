@@ -99,4 +99,10 @@ class AdminController
 
     }
 
+    public function logOut()
+    {
+        session_destroy();
+        header('Location: index.php');
+    }
+
 }

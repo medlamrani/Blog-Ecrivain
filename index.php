@@ -72,6 +72,11 @@ try
             
         }
 
+        elseif($_GET['action'] == 'logout')
+        {
+            $admin->logOut();
+        }
+
         elseif($_GET['action'] == 'administration')
         {   
             $admin->administration();            

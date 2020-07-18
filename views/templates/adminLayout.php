@@ -16,8 +16,9 @@
                 <img src="public/images/booki.png" width="50" height="40" alt="" loading="lazy">
             </a>           
             <a href="index.php?action=addPost">Add</a>
-            <a href="#clients">Update</a>
-            <a href="#contact">Delete</a>
+            <?php if(isset($_SESSION['username'])) : ?>
+                <a href="index.php?action=logout"> Se deconnecter </a>
+            <?php endif; ?>
         </div>
     </header> 
     <?php if(isset($_SESSION['message'])) : ?> 
