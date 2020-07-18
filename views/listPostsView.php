@@ -16,21 +16,21 @@
                 ?>
                     <article class="mb-5 mt-5">
                     <?php
-                    if (strlen($post->contain()) <= 200)
+                    if (strlen($post->content()) <= 200)
                     {
-                      $contain = $post->contain();
+                      $content = $post->content();
                     }
                     
                     else
                     {
-                      $debut = substr($post->contain(), 0, 200);
+                      $debut = substr($post->content(), 0, 200);
                       $debut = substr($debut, 0, strrpos($debut, ' ')) . '...';
                       
-                      $contain = $debut;
+                      $content = $debut;
                     }
                     
                     echo '<h4><a href="index.php?action=post&amp;id=', $post->id(), '">', $post->title(), '</a></h4>', "\n",
-                        '<p>', nl2br($contain), '</p>';
+                        '<p>', nl2br($content), '</p>';
                   ?>
                   <hr>
                     </article>

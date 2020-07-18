@@ -7,7 +7,7 @@ class PostManager  extends DBConnect
     public function getPosts($debut = -1, $limite = -1)
     {
       
-        $sql = 'SELECT id, author, title, contain, addDate, updateDate FROM post ORDER BY id DESC';
+        $sql = 'SELECT id, user_id, title, content, addDate, updateDate FROM post ORDER BY id DESC';
 
         if ($debut != -1 || $limite != -1)
         {
@@ -33,7 +33,7 @@ class PostManager  extends DBConnect
 
     public function getPost($id)
     {
-        $sql = "SELECT id, author, title, contain, addDate, updateDate FROM post WHERE id = :id";
+        $sql = "SELECT id, user_id, title, content, addDate, updateDate FROM post WHERE id = :id";
         $req = $this->connect()->prepare($sql);
 
         $req->bindValue(':id', (int) $id, PDO::PARAM_INT);
@@ -51,14 +51,14 @@ class PostManager  extends DBConnect
 
     public function addPost(Post $post)
     {
-        $sql = "INSERT INTO post(author, title, contain, addDate, updateDate)
-        VALUES(:author, :title, :contain, NOW(), NOW())";
+        $sql = "INSERT INTO post(user_id, title, content, addDate, updateDate)
+        VALUES(:user_id, :title, :content, NOW(), NOW())";
         $db = $this->connect()->prepare($sql);
         
 
         $db->bindValue(':title', $post->title());
-        $db->bindValue(':author', $post->author());
-        $db->bindValue(':contain', $post->contain());
+        $db->bindValue(':user_id', $post->userId());
+        $db->bindValue(':content', $post->content());
 
         $db->execute();
     }
@@ -71,12 +71,12 @@ class PostManager  extends DBConnect
 
     public function updatePost(Post $post)
     {
-        $sql = "UPDATE post SET author = :author, title = :title, contain = :contain, updateDate = NOW() WHERE id = :id";
+        $sql = "UPDATE post SET user_id = :user_id, title = :title, content = :content, updateDate = NOW() WHERE id = :id";
         $req = $this->connect()->prepare($sql);
 
         $req->bindValue(':title', $post->title());
-        $req->bindValue(':author', $post->author());
-        $req->bindValue(':contain', $post->contain());
+        $req->bindValue(':user_id', $post->userId());
+        $req->bindValue(':content', $post->content());
         $req->bindValue(':id', $post->id(), PDO::PARAM_INT);
 
         $req->execute();

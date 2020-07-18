@@ -33,7 +33,7 @@ class Controller
             [
                 'postId' => $_GET['id'],
                 'author' => $_POST['author'],
-                'contain' => $_POST['contain']
+                'content' => $_POST['content']
             ]
         );
 

@@ -41,9 +41,9 @@ class AdminController
 
         $post = new Post(
             [
-                'author' => $_POST['author'],
+                'userId' => $_POST['userId'],
                 'title' => $_POST['title'],
-                'contain' => $_POST['contain']
+                'content' => $_POST['content']
             ]
         );
 
