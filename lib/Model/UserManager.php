@@ -33,7 +33,8 @@ class UserManager extends DBConnect
                 session_start();
                 $_SESSION['id'] = $result['id'];
                 $_SESSION['username'] = $username;
-                echo 'Vous etes connecte !';
+                
+                $_SESSION['message'] = 'Vous etes connecte !';  
                 
                 return true;
             }
