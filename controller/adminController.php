@@ -39,26 +39,23 @@ class AdminController
 
         $postManager = new PostManager();
 
-        $post = new Post(
-            [
-                'userId' => $_POST['userId'],
-                'title' => $_POST['title'],
-                'content' => $_POST['content']
-            ]
-        );
-
-        if($post->isValid())
+        if(isset($_POST['title']))
         {
+            $post = new Post(
+                [
+                    'userId' => $_SESSION['id'],
+                    'title' => $_POST['title'],
+                    'content' => $_POST['content']
+                ]
+            );
+
             $postManager->save($post);
-            header('Location: index.php?action=administration');
+            require('views/administration.php');                       
         }
         else
         {
-            echo 'ajout impossible';
-        }
-
-        require('views/addPost.php');
-
+            require('views/addPost.php');
+        }   
         
     }
 
@@ -91,10 +88,8 @@ class AdminController
             require('views/administration.php');
         }
         else
-        {
-            
-            require('views/logIn.php');
-            
+        {          
+            require('views/logIn.php');          
         }
 
     }

@@ -42,7 +42,7 @@ class Post
 
     public function isValid()
     {
-        return !(empty($this->userId) || empty($this->title) || empty($this->content));
+        return !(empty($this->title) || empty($this->content));
     }
 
     public function setId($id)
@@ -52,7 +52,7 @@ class Post
 
     public function setUserId($userId)
     {
-        $this->$userId = (int) $userId;
+        $this->userId = (int) $userId;
     }
 
     public function setTitle($title)
