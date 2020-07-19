@@ -37,17 +37,9 @@ class Controller
             ]
         );
 
+        $commentManager->save($comment);
 
-        if($comment->isValid())
-        {
-            $commentManager->save($comment);
-        }
-        else
-        {
-            $_SESSION['message'] = 'Commentaire ff';
-        }
-
-        header('Location: index.php?action=post&id=' . $postId);
+        $this->post();
         
     }
 
@@ -58,8 +50,7 @@ class Controller
 
         $reportComment = $commentManager->report($id);
 
-        echo 'le commentaire a ete signaler';
-
+        $this->post();
     }
 }
 

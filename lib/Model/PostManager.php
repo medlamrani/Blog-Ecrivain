@@ -61,12 +61,16 @@ class PostManager  extends DBConnect
         $db->bindValue(':content', $post->content());
 
         $db->execute();
+
+        $_SESSION['message'] = 'Article ajoute avec succes !'; 
     }
 
     public function deletePost($id)
     {
         $sql = "DELETE FROM post WHERE id = ".(int) $id;
         $req = $this->connect()->exec($sql);
+
+        $_SESSION['message'] = 'L\'article a ete supprime avec succes !'; 
     }
 
     public function updatePost(Post $post)
@@ -87,10 +91,11 @@ class PostManager  extends DBConnect
     {
         if($post->isValid())
         {
-            $post->isNew() ? $this->addPost($post) : $this->updatePost($post);
+            $this->addPost($post);
         }
-        else{
-            throw new RuntimeException('L\'article doit etre valide pour etre enregistree');
+        else
+        {
+            $_SESSION['message'] = 'L\'article doit etre valide pour etre enregistree'; 
         }
     }
  

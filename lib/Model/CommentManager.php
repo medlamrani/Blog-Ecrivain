@@ -15,13 +15,15 @@ class CommentManager extends DBConnect
   
       $q->execute();
   
-      //$comment->setId($this->connect()->lastInsertId());
+      $_SESSION['message'] = 'Commentaire ajoute !'; 
   }
  
   public function delete($id)
   {
       $sql = "DELETE FROM comment WHERE id = ".(int) $id;
       $req = $this->connect()->exec($sql);
+
+      $_SESSION['message'] = 'Commentaire supprime avec succes !'; 
   }
  
   public function deleteFromPost($postId)
@@ -34,10 +36,10 @@ class CommentManager extends DBConnect
   {
       if (!ctype_digit($postId))
       {
-        throw new \InvalidArgumentException('L\'identifiant de la news passé doit être un nombre entier valide');
+        $_SESSION['message'] = 'L\'identifiant de la news passé doit être un nombre entier valide'; 
       }
 
-      $sql = 'SELECT id, post_id, author, content, commentDate FROM comment WHERE post_id = :post_id';
+      $sql = 'SELECT id, post_id, author, content, report, commentDate FROM comment WHERE post_id = :post_id';
   
       $q = $this->connect()->prepare($sql);
       $q->bindValue(':post_id', $postId, \PDO::PARAM_INT);
@@ -46,11 +48,7 @@ class CommentManager extends DBConnect
       $q->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\Comment');
   
       $comments = $q->fetchAll();
-  
-      var_dump($comments);
-      
-      
-  
+
       return $comments;
   }
  
@@ -74,7 +72,7 @@ class CommentManager extends DBConnect
       }
       else
       {
-          throw new RuntimeException('Le commentaire doit etre valide pour etre enregistree');
+          $_SESSION['message'] = 'Le commentaire doit etre valide pour etre enregistree'; 
       }
   }
 
@@ -82,6 +80,9 @@ class CommentManager extends DBConnect
   {
       $sql = 'UPDATE comment SET report = 1 WHERE id = '.(int) $id;
       $req = $this->connect()->exec($sql);
+
+      $_SESSION['message'] = 'Le commentaire a ete signaler'; 
+  
   }
 
 }

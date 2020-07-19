@@ -19,7 +19,7 @@ class UserManager extends DBConnect
        // hachage password_verify
 
        $isPasswordCorrect = $password == $result['password'];
-       var_dump($isPasswordCorrect);
+       
 
        if (!$result)
        {
@@ -30,7 +30,6 @@ class UserManager extends DBConnect
        {
             if ($isPasswordCorrect)
             {
-                session_start();
                 $_SESSION['id'] = $result['id'];
                 $_SESSION['username'] = $username;
                 

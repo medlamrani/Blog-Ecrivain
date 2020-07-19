@@ -105,3 +105,5 @@ catch(Exception $e)
 {
     echo 'Erreur : ' . $e->getMessage();
 }
+
+unset($_SESSION['message']);
