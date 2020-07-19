@@ -1,23 +1,16 @@
-# Project 4 formation dwj Openclassroom
+# Project : Blog
 
-Ce projet consiste a realisé un blog pour un ecrivain fictif "Jean Forteroche"
+Pour lancer l'application, il faut suivre les etapes suivantes :
 
-# Le projet
-
-Le site a pour but d'aider l'écrivain a publié par épisodes en ligne son travaillé, sur son prochain roman "Billet Simple pour l'Alaska".
-
-Jean Forteroche souhaite avoir son propre outile de blog, offrant des fonctionnalités simples.
-
-On peut consulter, ajouter, modifier et supprimer des articles.
-Gérer les commentaires laissés par les lecteurs, avoir la possibilité de les supprimer s'ils ont été signaler.
-Pour ajouter des articles une interface basée sur TinyMCE a été ajouter, afin de faciliter l'ajout des articles et d'éviter à l'administrateur d'écrire en HTML.
-
-Jean Forteroche (l'admin) pourra accéder à l'interface administration en allant directement sur le lien suivant : http://forteroche.web-devmed.fr/index.php?action=administration
-Il aura besoin de s'identifier afin d'accéder à cette interface.
-
-
-Le site est développé en PHP, MySQL et Bootstrap.
-Il utilise l'architecture MVC et programmer en Orientée Objet.
+1- Installer Apache
+2- Installer wamp ou mamp
+3- Avoir un editeur de text
+4- Copier le code sur votre ordinateur, dans le dossier reserver a wamp
+5- Ouvrir le dossier avec l'editeur de text
+6- Ouvrir Phpmyadmin et creer une base de donnee
+7- Copier le code du fichier 00_create-table.sql ainsi que 01_insert-data.sql
+8- Modifier le dossier DBConnect.php avec les informations de votre base de donnee
+9- Lancer l'application
 
 # Environnement
 
@@ -26,6 +19,11 @@ Il utilise l'architecture MVC et programmer en Orientée Objet.
 * OOP
 * Bootstrap
 * MySQL
+
+# Liens 
+
+* Le lien de mon application : http://forteroche.web-devmed.fr/
+* Pour acceder a la partie administration : http://forteroche.web-devmed.fr/index.php?action=administration
 
 
 
