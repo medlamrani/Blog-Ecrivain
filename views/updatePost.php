@@ -9,10 +9,10 @@
                 <h1 class="h3 mb-3 font-weight-normal">Modifier l'article</h1>
 
                 <label for="title" >Titre article :</label>
-                <input type="text" name="title" class="form-control" value="<?php if (isset($post)) echo $post->title(); ?>"/>
+                <input type="text" name="title" class="form-control" value="Titre"/>
 
                 <label for="contain" >Contenu article </label>
-                <textarea class="form-control" id="content" name="content" rows="3" value="<?php if (isset($post)) echo $post->contain(); ?>"></textarea>
+                <textarea class="form-control" id="content" name="content" rows="3" value="Contenu"></textarea>
                 
 
                 <input type="submit" value="Modifier" name="updatePost" class="btn btn-lg btn-primary btn-block mt-3"/>
