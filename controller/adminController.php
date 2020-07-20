@@ -59,6 +59,36 @@ class AdminController
         
     }
 
+    public function updatePost($id)
+    {
+        $this->sessionExists();
+
+        $postManager = new PostManager();
+
+        if(isset($_POST['title']))
+        {
+            $post = new Post(
+                [
+                    'userId' => $_SESSION['id'],
+                    'title' => $_POST['title'],
+                    'content' => $_POST['content'],
+                    'id' => $id
+                ]
+            );
+
+
+            $postManager->save($post);
+            header('Location: index.php?action=administration');
+            
+
+        }
+        else
+        {
+            require('views/updatePost.php');
+        }
+        
+    }
+
     public function deletePost($id)
     {
         $this->sessionExists();

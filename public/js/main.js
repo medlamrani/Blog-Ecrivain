@@ -1,3 +1,3 @@
 tinymce.init({
-    selector: '#contain'
+    selector: '#content'
     });

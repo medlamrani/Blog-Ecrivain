@@ -91,7 +91,7 @@ class PostManager  extends DBConnect
     {
         if($post->isValid())
         {
-            $this->addPost($post);
+            $post->isNew() ? $this->addPost($post) : $this->updatePost($post);
         }
         else
         {

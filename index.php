@@ -87,6 +87,11 @@ try
             $admin->addPost();
         } 
 
+        elseif($_GET['action'] == 'updatePost')
+        {
+            $admin->updatePost($_GET['id']);     
+        }
+
         elseif($_GET['action'] == 'deletePost')
         {
             if(isset($_GET['id']))
