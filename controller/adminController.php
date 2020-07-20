@@ -78,7 +78,7 @@ class AdminController
 
 
             $postManager->save($post);
-            header('Location: index.php?action=administration');
+            require('views/administration.php'); 
             
 
         }

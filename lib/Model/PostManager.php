@@ -84,6 +84,8 @@ class PostManager  extends DBConnect
         $req->bindValue(':id', $post->id(), PDO::PARAM_INT);
 
         $req->execute();
+
+        $_SESSION['message'] = 'Article modifier avec succes !'; 
     }
 
 
