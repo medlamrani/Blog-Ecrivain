@@ -59,6 +59,11 @@ try
 
         // Admin 
 
+        elseif($_GET['action'] == 'inscription')
+        {
+            $admin->inscription();
+        }
+
         elseif($_GET['action'] == 'login')
         {
             if(isset($_POST['login']))
@@ -82,10 +87,25 @@ try
             $admin->administration();            
         } 
 
+        elseif ($_GET['action'] == 'noReportComment')
+        {
+            $admin->noReportComment($_GET['id']);
+        }
+
+        elseif ($_GET['action'] == 'deleteComment')
+        {
+            $admin->noReportComment($_GET['id']);
+        }
+
         elseif($_GET['action'] == 'addPost') 
         {
             $admin->addPost();
         } 
+
+        elseif($_GET['action'] == 'updatePost')
+        {
+            $admin->updatePost($_GET['id']);     
+        }
 
         elseif($_GET['action'] == 'deletePost')
         {
@@ -98,7 +118,7 @@ try
 
     else
     {
-        $controller->getList();
+        $controller->home();
     }
 }
 catch(Exception $e) 

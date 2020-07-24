@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `comment` (
   `report` int(11) NOT NULL,
   `commentDate` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT FK_PostComment FOREIGN KEY (post_id) REFERENCES post(id)
+  CONSTRAINT FK_PostComment FOREIGN KEY (post_id) REFERENCES post(id) ON DELETE CASCADE
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
 

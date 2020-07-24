@@ -15,15 +15,15 @@ class UserManager extends DBConnect
        ));
 
        $result = $req->fetch();
-
-       // hachage password_verify
-
-       $isPasswordCorrect = $password == $result['password'];
+ 
+       
+       $isPasswordCorrect = password_verify($password, $result['password']);
        
 
        if (!$result)
        {
            $_SESSION['message'] = 'Login et mot de passe incorrect';
+           var_dump($result['password']);
            return false;
        }
        else
@@ -40,8 +40,25 @@ class UserManager extends DBConnect
             else
             {
                 $_SESSION['message'] = 'Login et mot de passe incorrect';
+                var_dump($password);
+                
                 return false;
             } 
        }
    }
+
+   public function addUser(User $user)
+    {
+        
+        $sql = "INSERT INTO user (username, password) VALUES(:username, :password)";
+        $db = $this->connect()->prepare($sql);
+        
+
+        $db->bindValue(':username', $user->username());
+        $db->bindValue(':password', $user->password());
+
+        $db->execute();
+
+        $_SESSION['message'] = 'User added'; 
+    }
 }

@@ -84,6 +84,8 @@ class PostManager  extends DBConnect
         $req->bindValue(':id', $post->id(), PDO::PARAM_INT);
 
         $req->execute();
+
+        $_SESSION['message'] = 'Article modifier avec succes !'; 
     }
 
 
@@ -91,7 +93,7 @@ class PostManager  extends DBConnect
     {
         if($post->isValid())
         {
-            $this->addPost($post);
+            $post->isNew() ? $this->addPost($post) : $this->updatePost($post);
         }
         else
         {
