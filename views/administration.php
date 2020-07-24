@@ -2,18 +2,6 @@
 
 <?php ob_start(); ?>
 
-<div class="container bg-white shadow">
-      <div class="row">
-          <div class="col-lg-5  list">
-              <div class="header-content mx-auto">
-                  <h1 class="text-center text-black">
-                        Administration
-                  </h1> 
-              </div>
-          </div>
-      </div>
-</div> 
-
 
 <section id="articles">
     <div class="container bg-white shadow">
@@ -46,7 +34,7 @@
                         <a href="index.php?action=post&amp;id=<?= $post->id() ?>"><?= $post->title() ?></a>
                   </h4>
                   <p><?= nl2br($content) ?> </p>
-                  <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Modifier</a>
+                  <a href="index.php?action=updatePost&amp;id=<?= $post->id() ?>" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Modifier</a>
                   <a href="index.php?action=deletePost&amp;id=<?= $post->id() ?>" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Supprimer</a>
                   <hr>
                     </article>
@@ -66,7 +54,7 @@
             ?>
                 <div class="col-10 offset-1 mb-5 mt-5">
                     <div class="text-justify mb-5">Posté par <strong><?= htmlspecialchars($comment['author']) ?></strong> le <?= $comment['commentDate'] ?></div>
-                    <div class="text-justify article-text text-reader"><?= nl2br(htmlspecialchars($comment['content'])) ?></div>
+                    <div class="text-justify article-text text-reader"><?= nl2br($comment['content']) ?></div>
                     <a class="btn btn-primary btn-lg active" href="index.php?action=deleteComment&amp;id=<?= $comment['id'] ?>">Supprimer</a>
                     <a class="btn btn-primary btn-lg active" href="index.php?action=noReportComment&amp;id=<?= $comment['id'] ?>">Approuver</a>
                     <hr>

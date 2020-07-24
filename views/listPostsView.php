@@ -32,14 +32,14 @@
                 ?>
                     <article class="mb-5 mt-5">
                     <?php
-                    if (strlen($post->content()) <= 200)
+                    if (strlen($post->content()) <= 400)
                     {
                       $content = $post->content();
                     }
                     
                     else
                     {
-                      $debut = substr($post->content(), 0, 200);
+                      $debut = substr($post->content(), 0, 400);
                       $debut = substr($debut, 0, strrpos($debut, ' ')) . '...';
                       
                       $content = $debut;

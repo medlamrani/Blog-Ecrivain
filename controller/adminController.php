@@ -5,6 +5,8 @@ require_once('lib/Model/CommentManager.php');
 require_once('lib/Model/UserManager.php');
 require_once('lib/Model/DBConnect.php');
 require_once('lib/Entity/Post.php');
+require_once('lib/Entity/User.php');
+require_once('lib/Entity/Comment.php');
 
 
 class AdminController
@@ -29,6 +31,9 @@ class AdminController
         $this->sessionExists();
 
         $postManager = new PostManager();
+        $commentManager = new CommentManager();
+        $reported = $commentManager->reportedComment();
+        
         require('views/administration.php');
     }
 
@@ -102,12 +107,46 @@ class AdminController
         header('Location: index.php?action=administration');
     }
 
+    public function noReportComment($id)
+    {
+        $commentManager = new CommentManager();
+
+        $reportComment = $commentManager->noReport($id);
+
+        header('Location: index.php?action=administration');
+    }
+
+    public function inscription()
+    {
+        $pass_hache = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
+        $userManager = new UserManager();
+
+        if(isset($_POST['username']))
+        {
+            $user = new User(
+                [
+                    'username' => $_POST['username'],
+                    'password' => $pass_hache
+                ]
+            );
+
+            $userManager->addUser($user);
+            require('views/home.php');                       
+        }
+        else
+        {
+            require('views/addUser.php');
+        }
+    }
+
     public function logIn()
     {
         $username = $_POST['username'];
         $password = $_POST['password'];
         
         $admin = new UserManager();
+        var_dump($password);
 
         $result = $admin->adminConnect($username, $password);
 
@@ -118,7 +157,7 @@ class AdminController
             require('views/administration.php');
         }
         else
-        {          
+        {              
             require('views/logIn.php');          
         }
 

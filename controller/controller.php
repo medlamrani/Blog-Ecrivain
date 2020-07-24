@@ -8,6 +8,12 @@ require_once('lib/Entity/Post.php');
 
 class Controller
 {
+    public function home()
+    {
+        $postManager = new PostManager();
+        require('views/home.php');
+    }
+
     public function getList()
     {
         $postManager = new PostManager();
@@ -51,6 +57,7 @@ class Controller
         $reportComment = $commentManager->report($id);
 
         $this->post();
+        
     }
 }
 

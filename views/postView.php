@@ -42,7 +42,7 @@
             ?>
                 <div class="col-10 offset-1 mb-5 mt-5">
                     <div class="text-justify mb-5">Posté par <strong><?= htmlspecialchars($comment['author']) ?></strong> le <?= $comment['commentDate'] ?></div>
-                    <div class="text-justify article-text text-reader"><?= nl2br(htmlspecialchars($comment['content'])) ?></div>
+                    <div class="text-justify article-text text-reader"><?= nl2br($comment['content']) ?></div>
                     <a class="btn btn-primary btn-lg active" href="index.php?action=reportComment&amp;id=<?= $comment['id'] ?>">Signaler</a>
                     <hr>
                 </div>    

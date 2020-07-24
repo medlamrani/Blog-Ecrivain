@@ -85,4 +85,23 @@ class CommentManager extends DBConnect
   
   }
 
+  public function noReport($id)
+  {
+    $sql = 'UPDATE comment SET report = 0 WHERE id = '.(int) $id;
+    $req = $this->connect()->exec($sql);
+
+    $_SESSION['message'] = 'Le commentaire a ete approuver'; 
+  }
+
+  public function reportedComment()
+  {
+      $sql= "SELECT * FROM comment WHERE report = 1";
+      $req = $this->connect()->query($sql);
+
+      $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, '\Entity\Comment');
+      $listreport = $req->fetchAll();
+
+      return $listreport;
+  }
+
 }
