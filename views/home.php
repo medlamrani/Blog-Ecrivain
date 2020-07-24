@@ -24,7 +24,6 @@
             <div class="row">
                 <div class="col-10 offset-1 mb-5 mt-5">
                     <h2 class="text-justify" style="36px"> Bienvenue </h2>
-                    <br />
                     <hr>
                     <p>Bienvenue sur mon Blog, moi Jean Forteroche, je vais vous faire decouvrir
                       mon dernier Roman, chapitre par chapitre.</p>
@@ -37,8 +36,7 @@
         <div class="container bg-white shadow">
             <div class="row">
                 <div class="col-10 offset-1 mb-5 mt-5">
-                    <h2 class="text-justify" style="36px"> Dernier Chapitre :</h2>
-                    <br />
+                    <h2 class="text-justify" style="34px"> Dernier Chapitre </h2>
                     <hr>
                 
                     <?php 

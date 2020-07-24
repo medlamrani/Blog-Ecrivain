@@ -56,7 +56,7 @@ class Controller
 
         $reportComment = $commentManager->report($id);
 
-        $this->post();
+        header('Location: index.php?action=listPosts');
         
     }
 }

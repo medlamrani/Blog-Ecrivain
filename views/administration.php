@@ -33,7 +33,9 @@
                   <h4>
                         <a href="index.php?action=post&amp;id=<?= $post->id() ?>"><?= $post->title() ?></a>
                   </h4>
-                  <p><?= nl2br($content) ?> </p>
+                  
+                  <?= nl2br($content) ?> 
+
                   <a href="index.php?action=updatePost&amp;id=<?= $post->id() ?>" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Modifier</a>
                   <a href="index.php?action=deletePost&amp;id=<?= $post->id() ?>" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Supprimer</a>
                   <hr>
@@ -53,6 +55,7 @@
             {
             ?>
                 <div class="col-10 offset-1 mb-5 mt-5">
+                    <h2 class="text-justify" style="36px">Les commentaires signaler.</h2>
                     <div class="text-justify mb-5">Posté par <strong><?= htmlspecialchars($comment['author']) ?></strong> le <?= $comment['commentDate'] ?></div>
                     <div class="text-justify article-text text-reader"><?= nl2br($comment['content']) ?></div>
                     <a class="btn btn-primary btn-lg active" href="index.php?action=deleteComment&amp;id=<?= $comment['id'] ?>">Supprimer</a>

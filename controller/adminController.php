@@ -21,11 +21,6 @@ class AdminController
         }
     }
 
-    public function loginForm()
-    {
-        require('views/logIn.php');
-    }
-
     public function administration()
     {
         $this->sessionExists();
@@ -99,10 +94,7 @@ class AdminController
         $this->sessionExists();
 
         $postManager = new PostManager();
-        $commentManager = new CommentManager();
-
         $postManager->deletePost($id); // supprimer l'article
-        $commentManager->deleteFromPost($id); // supprimer les commentaire de cet article
 
         header('Location: index.php?action=administration');
     }

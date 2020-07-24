@@ -2,6 +2,7 @@ body {
   font-family: "Lato", sans-serif;
 }
 
+
 .masthead {
   width: 100%;
   height: calc(100vh - 100px);
@@ -57,7 +58,6 @@ section {
 .main {
   width: 90%;
   margin: -50px auto 100px;
-  font-size: 28px;
   padding: 0px 10px;
 
 }
@@ -109,4 +109,24 @@ h3 a:hover {
 .flashmsg
 {
   z-index: 100;
+}
+
+footer{
+  background-color: lightgrey;
+}
+
+
+@media screen and (max-width: 900px){
+
+      #welcome p {
+          font-size: 18px;
+      };
+
+      .main {
+        font-size: 18px;
+      }
+
+      h1{
+        text-align: left;
+      }
 }
