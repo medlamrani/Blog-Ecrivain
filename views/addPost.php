@@ -1,3 +1,5 @@
+<?php $title = 'Ajouter un chapitre'; ?>
+
 <?php ob_start(); ?>
 <?php 
     echo 'Bonjour '. $_SESSION['username'];

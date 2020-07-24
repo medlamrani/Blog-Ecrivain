@@ -34,7 +34,7 @@
                         <a href="index.php?action=post&amp;id=<?= $post->id() ?>"><?= $post->title() ?></a>
                   </h4>
                   
-                  <?= nl2br($content) ?> 
+                  <p><?= nl2br($content) ?></p> 
 
                   <a href="index.php?action=updatePost&amp;id=<?= $post->id() ?>" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Modifier</a>
                   <a href="index.php?action=deletePost&amp;id=<?= $post->id() ?>" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Supprimer</a>
