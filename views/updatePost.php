@@ -1,3 +1,5 @@
+<?php $title = 'Modifier le chapitre'; ?>
+
 <?php ob_start(); ?>
 <?php 
       echo 'Bonjour '. $_SESSION['username'];

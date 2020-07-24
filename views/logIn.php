@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="public/css/style.css">
         <link rel="stylesheet" type="text/css" href="public/css/bootstrap.css">
-        <title><?= $title ?></title>
+        <title>Se connecter</title>
     </head>
     <body>
     <?php if(isset($_SESSION['message'])) : ?> 
