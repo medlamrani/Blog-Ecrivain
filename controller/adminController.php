@@ -32,6 +32,11 @@ class AdminController
         require('views/administration.php');
     }
 
+    public function loginForm()
+    {
+        require('views/logIn.php');
+    }
+
 
     public function addPost(){
 
@@ -50,7 +55,7 @@ class AdminController
             );
 
             $postManager->save($post);
-            require('views/administration.php');                       
+            $this->administration();                       
         }
         else
         {
@@ -78,7 +83,7 @@ class AdminController
 
 
             $postManager->save($post);
-            require('views/administration.php'); 
+            $this->administration(); 
             
 
         }
@@ -96,16 +101,18 @@ class AdminController
         $postManager = new PostManager();
         $postManager->deletePost($id); // supprimer l'article
 
-        header('Location: index.php?action=administration');
+        $this->administration(); 
     }
 
     public function noReportComment($id)
     {
+        $this->sessionExists();
+        
         $commentManager = new CommentManager();
 
         $reportComment = $commentManager->noReport($id);
 
-        header('Location: index.php?action=administration');
+        $this->administration(); 
     }
 
     public function inscription()
@@ -146,7 +153,8 @@ class AdminController
         {
             $postManager = new PostManager();
             $commentManager = new CommentManager();
-            require('views/administration.php');
+
+            $this->administration(); 
         }
         else
         {              

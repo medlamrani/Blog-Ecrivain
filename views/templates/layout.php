@@ -9,13 +9,13 @@
         <title><?= $title ?></title>
     </head>
     <body>  
-        <nav class="navbar navbar-light bg-light fixed-top justify-content-between">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top justify-content-between">
 
             <a class="navbar-brand">
                 <img src="public/images/booki.png" width="50" height="40" alt="" loading="lazy">
                 Jean Forteroche
-            </a>
-
+            </a>    
+        
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -25,6 +25,7 @@
                 <a class="navlink" href="index.php?action=listPosts">Chapitres</a>             
             </div>
         </nav>  
+
         <?php if(isset($_SESSION['message'])) : ?> 
             <div class="alert alert-warning alert-dismissible fade show" role="alert">
                 <strong><?php echo $_SESSION['message'] ;?></strong> 
