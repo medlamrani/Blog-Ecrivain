@@ -11,8 +11,8 @@ class Post
                 $updateDate;
 
     const AUTHOR_INVALIDE = 1;
-    const TITLE_INVALIDE = 1;
-    const CONTENT_INVALIDE = 1;
+    const TITLE_INVALIDE = 2;
+    const CONTENT_INVALIDE = 3;
 
     public function __construct( $values = [])
     {    
